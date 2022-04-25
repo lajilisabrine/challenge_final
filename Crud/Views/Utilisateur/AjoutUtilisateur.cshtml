@@ -1,0 +1,138 @@
+﻿@model Crud.Models.User
+@{
+    ViewBag.Title = "AjoutUtilisateur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ajout Utilisateur</h2>
+
+
+<form id="formutilisateur" name="formutilisateur" method="post">
+    <div class="form-row">
+        @if (Model !=null)
+        {
+            <input type="hidden" name="UserID" id="UserID" value="@Model.UserID"/>
+        }
+        <div class="col-md-4 mb-3">
+            <label> Matricule </label>
+            <input type="text" class="form-control" id="matricule" name="Matricule" placeholder="Matricule"  value=" @(Model!=null? Model.Matricule : "")"   required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label> nom et prenom</label>
+            <input type="text" class="form-control" id="Username" name="Username" placeholder="Username" value="@(Model!=null? Model.Username : "")" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" id="Email" name="Email" placeholder="Email" value="@(Model!=null? Model.Username : "")" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label> Poste</label>
+
+            <input type="text" class="form-control" id="Poste" name="Poste" placeholder="Poste"  value="@(Model!=null? Model.Username : "")" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label> Password</label>
+
+            <input type="password" class="form-control" id="Password" name="Password" placeholder="password" value="@(Model!=null? Model.Password : "")" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label>Manager</label>
+            <input type="text" class="form-control" id="Manager" name="Manager" placeholder="Manager" value="@(Model!=null? Model.Manager : "")" required>
+        </div>
+
+    </div>
+    <hr />
+    <div>
+        @if (Model == null)
+        {
+
+
+            <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-primary" />
+                }
+                else
+                {
+                    <input type = "submit" id = "Modifier" name = "modifier" value = "enregistrement la modification" class="btn btn-primary" />
+            <a href="~/Utilisateur/AjoutUtilisateur" class="btn btn-default">Annuler</a>
+        }
+    </div>
+</form>
+
+@*<button class="btn btn-primary" type="submit">Enregistrement</button>*@
+
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Matricule</th>
+            <th>Nom et Prenom</th>
+            <th>poste</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Manager</th>
+
+        </tr>
+        @foreach (var data in ViewBag.listeUtilisateur)
+        {
+        <tr>
+            <td>@data.Matricule</td>
+            <td>@data.Username</td>
+            <td>@data.Poste</td>
+            <td>@data.Email</td>
+            <td>@data.Password</td>
+            <td>@data.Manager</td>
+
+            <td> <a href="~/Utilisateur/SupprimerUtilisateur/@data.UserID" class="btn btn-danger btn-xs" onclick="return confirm('VEUILLEZ CONFIRMER LA SUPPRESSION')"><span class="glyphicon glyphicon-remove"></span> supprimer</a></td>
+            <td> <a href="~/Utilisateur/ModifierUtilisateur/@data.UserID" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span> modifier</a></td>
+
+        </tr>
+
+        }
+
+    </table>
+
+</div>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+
+@*<div>
+        <form id="formutilisateur" name="formutilisateur" method="post">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label> Matricule </label>
+                    <input type="text" id="matricule" name="matricule " required />
+                </div>
+                <div class="form-group">
+                    <label> Poste</label>
+                    <input type="text" id="Poste" name="Poste" required />
+                </div>
+                <div class="form-group">
+                    <label> password</label>
+                    <input type="password" id="Password" name="Password " required />
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+
+                <div class="form-group">
+                    <label> nom et prenom</label>
+                    <input type="text" id="Username" name="Username " required />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="Email" name="Email " required />
+                </div>
+                <div class="form-group">
+                    <label> Manager</label>
+                    <input type="text" id="Manager" name="Manager " required />
+                </div>
+
+            </div>
+
+                <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-primary" />
+
+        </form>
+    </div>
+*@

@@ -1,0 +1,16 @@
+﻿@model Crud.Models.User
+@{
+    ViewBag.Title = "UserDashBoard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserDashBoard</h2>
+<fieldset>
+    < legend > User DashBoard < /legend>
+
+    @if (Session["Matricule"] != null)
+    {
+        <text>
+            Welcome @Session["Matricule"].ToString() </text>
+    }
+</fieldset>

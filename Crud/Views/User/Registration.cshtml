@@ -1,0 +1,188 @@
+﻿@model Crud.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Elite login Form a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+    <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+    </script>
+    <!-- //Meta-Tags -->
+    <!-- Stylesheets -->
+    <link href="~/Usertemp/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Usertemp/css/style.css" rel='stylesheet' type='text/css' />
+    <!--// Stylesheets -->
+    <!--fonts-->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <!--//fonts-->
+</head>
+<body>
+    <h1>Challenge Form</h1>
+    <div class="w3ls-login">
+        <!-- form starts here -->
+        <form action="#" method="post">
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-user" aria-hidden="true"></i> Username :
+                </label>
+                @*<input type="text" name="name" placeholder=" " required="" />*@
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+            </div>
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-user" aria-hidden="true"></i> Matricule :
+                </label>
+                @*<input type="text" name="name" placeholder=" " required="" />*@
+                @Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+            </div>
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i> Email :
+                </label>
+                @*<input type="text" name="name" placeholder=" " required="" />*@
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+            </div>
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-briefcase" aria-hidden="true"></i> Poste :
+                </label>
+                @*<input type="text" name="name" placeholder=" " required="" />*@
+                @Html.EditorFor(model => model.Poste, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+            </div>
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-user" aria-hidden="true"></i> Manager :
+                </label>
+                @*<input type="text" name="name" placeholder=" " required="" />*@
+                @Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+            </div>
+
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-lock" aria-hidden="true"></i> password :
+                </label>
+                @*<a href="#" class="w3ls-right">forgot password?</a>*@
+                @*<input type="password" name="password" placeholder=" " required="" id="myInput" />*@
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @name = "password", @placeholder = " ", @required = "", @id = "myInput" } })
+                
+                <div class="agile_label">
+                    <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                    <label class="check" for="check3">Show password</label>
+                </div>
+            </div>
+            <script>
+                function myFunction() {
+                    var x = document.getElementById("myInput");
+                    if (x.type === "password") {
+                        x.type = "text";
+                       
+                    } else {
+                        x.type = "password";
+                    }
+                }
+            </script>
+            <!-- //script for show password -->
+            <div class="w3ls-login  w3l-sub">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+    <!-- //form ends here -->
+    <!--copyright-->
+    <div class="copy-wthree">
+        <p>
+            Universite Centrale
+            <a href="http://w3layouts.com/" target="_blank">W3layouts</a>
+        </p>
+    </div>
+
+
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>User</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Matricule, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Matricule, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Poste, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Poste, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Poste, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Manager, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Manager, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+</body>
+</html>
