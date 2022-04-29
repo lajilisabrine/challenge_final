@@ -1,5 +1,4 @@
-﻿@model Crud.Models.User
-
+﻿
 @{
     Layout = null;
 }
@@ -40,16 +39,16 @@
                 <label>
                     <i class="fa fa-user" aria-hidden="true"></i> Matricule :
                 </label>
-                @*<input type="text" name="Matricule" placeholder=" " required="" />*@
-                @Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @type = "text", @name = "Matricule", @placeholder = " " , @required = "" } })
+                <input type="text" name="Matricule" placeholder=" " required="" />
+              
             </div>
             <div class="agile-field-txt">
                 <label>
                     <i class="fa fa-lock" aria-hidden="true"></i> password :
                 </label>
                 <a href="#" class="w3ls-right">forgot password?</a>
-                @*<input type="password" name="password" placeholder=" " required="" id="myInput" />*@
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password" , @name = "password" , @placeholder = " ",  @required = "", @id = "myInput" } })
+                <input type="password" name="password" placeholder=" " required="" id="myInput" />
+               
                 <div class="agile_label">
                     <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
                     <label class="check" for="check3">Show password</label>
