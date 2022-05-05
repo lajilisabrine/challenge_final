@@ -14,8 +14,9 @@ namespace Crud.Models
             DateCreation = DateTime.Now;
 
             Date_Modification = DateTime.Now;
+            this.Formations = new HashSet<Formation>();
         }
-
+       
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
@@ -43,9 +44,9 @@ namespace Crud.Models
 
         public string Num_Tel { get; set; }
 
-        public Status status { get; set; }
+        public Status Status { get; set; }
 
-        public Role role { get; set; }
+        public Role Role { get; set; }
 
         public string Poste { get; set; }
 
@@ -58,6 +59,11 @@ namespace Crud.Models
         public DateTime DateCreation { get; set; }
 
         public DateTime? Date_Modification { get;set; }
+       
+        public virtual CvFile CV { get; set; }
+        public ICollection<Contact> Contacts { get; set; }
+        public ICollection<Entretein> Entreteins { get; set; }
+        public ICollection<Formation> Formations { get; set; }
 
     }
 }

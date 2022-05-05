@@ -168,11 +168,31 @@
     <Compile Include="Migrations\202204290031240_Maj Utilisateur Date_Modification Nullable.designer.cs">
       <DependentUpon>202204290031240_Maj Utilisateur Date_Modification Nullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204301347009_maj de bd.cs" />
+    <Compile Include="Migrations\202204301347009_maj de bd.designer.cs">
+      <DependentUpon>202204301347009_maj de bd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204301352475_maj de base de donnees.cs" />
+    <Compile Include="Migrations\202204301352475_maj de base de donnees.designer.cs">
+      <DependentUpon>202204301352475_maj de base de donnees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205041915274_majdebasededonnees1.cs" />
+    <Compile Include="Migrations\202205041915274_majdebasededonnees1.designer.cs">
+      <DependentUpon>202205041915274_majdebasededonnees1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
-    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\Appreciation.cs" />
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\CvFile.cs" />
+    <Compile Include="Models\Entretein.cs" />
+    <Compile Include="Models\Etat.cs" />
+    <Compile Include="Models\Formation.cs" />
+    <Compile Include="Models\Objectif.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Type.cs" />
+    <Compile Include="Models\Type_F.cs" />
     <Compile Include="Models\Utilisateur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\UsersController.cs" />
@@ -2405,6 +2425,7 @@
     <Content Include="Views\Shared\login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Test.cshtml" />
+    <Content Include="Views\Admin\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2440,6 +2461,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204290031240_Maj Utilisateur Date_Modification Nullable.resx">
       <DependentUpon>202204290031240_Maj Utilisateur Date_Modification Nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204301347009_maj de bd.resx">
+      <DependentUpon>202204301347009_maj de bd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204301352475_maj de base de donnees.resx">
+      <DependentUpon>202204301352475_maj de base de donnees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205041915274_majdebasededonnees1.resx">
+      <DependentUpon>202205041915274_majdebasededonnees1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
