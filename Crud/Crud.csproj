@@ -140,50 +140,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
+    <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UtilisateurController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204282344167_init.cs" />
-    <Compile Include="Migrations\202204282344167_init.designer.cs">
-      <DependentUpon>202204282344167_init.cs</DependentUpon>
+    <Compile Include="Migrations\202205052207535_init.cs" />
+    <Compile Include="Migrations\202205052207535_init.designer.cs">
+      <DependentUpon>202205052207535_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204282349511_Ajouter numero.cs" />
-    <Compile Include="Migrations\202204282349511_Ajouter numero.designer.cs">
-      <DependentUpon>202204282349511_Ajouter numero.cs</DependentUpon>
+    <Compile Include="Migrations\202205052243311_add matricule.cs" />
+    <Compile Include="Migrations\202205052243311_add matricule.designer.cs">
+      <DependentUpon>202205052243311_add matricule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202204290004539_Maj Utilisateur.cs" />
-    <Compile Include="Migrations\202204290004539_Maj Utilisateur.designer.cs">
-      <DependentUpon>202204290004539_Maj Utilisateur.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204290009442_Maj Utilisateur Date_Modification.cs" />
-    <Compile Include="Migrations\202204290009442_Maj Utilisateur Date_Modification.designer.cs">
-      <DependentUpon>202204290009442_Maj Utilisateur Date_Modification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204290031240_Maj Utilisateur Date_Modification Nullable.cs" />
-    <Compile Include="Migrations\202204290031240_Maj Utilisateur Date_Modification Nullable.designer.cs">
-      <DependentUpon>202204290031240_Maj Utilisateur Date_Modification Nullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204301347009_maj de bd.cs" />
-    <Compile Include="Migrations\202204301347009_maj de bd.designer.cs">
-      <DependentUpon>202204301347009_maj de bd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204301352475_maj de base de donnees.cs" />
-    <Compile Include="Migrations\202204301352475_maj de base de donnees.designer.cs">
-      <DependentUpon>202204301352475_maj de base de donnees.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202205041915274_majdebasededonnees1.cs" />
-    <Compile Include="Migrations\202205041915274_majdebasededonnees1.designer.cs">
-      <DependentUpon>202205041915274_majdebasededonnees1.cs</DependentUpon>
+    <Compile Include="Migrations\202205052344471_add Ticket.cs" />
+    <Compile Include="Migrations\202205052344471_add Ticket.designer.cs">
+      <DependentUpon>202205052344471_add Ticket.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
-    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\CvFile.cs" />
     <Compile Include="Models\Entretein.cs" />
     <Compile Include="Models\Etat.cs" />
@@ -2426,6 +2405,12 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Test.cshtml" />
     <Content Include="Views\Admin\View.cshtml" />
+    <Content Include="Views\Shared\_LayoutRH.cshtml" />
+    <Content Include="Views\RH\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutManager.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\Manager\Index.cshtml" />
+    <Content Include="Views\Admin\ListeUtilisateurs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2447,29 +2432,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202204282344167_init.resx">
-      <DependentUpon>202204282344167_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205052207535_init.resx">
+      <DependentUpon>202205052207535_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204282349511_Ajouter numero.resx">
-      <DependentUpon>202204282349511_Ajouter numero.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205052243311_add matricule.resx">
+      <DependentUpon>202205052243311_add matricule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204290004539_Maj Utilisateur.resx">
-      <DependentUpon>202204290004539_Maj Utilisateur.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204290009442_Maj Utilisateur Date_Modification.resx">
-      <DependentUpon>202204290009442_Maj Utilisateur Date_Modification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204290031240_Maj Utilisateur Date_Modification Nullable.resx">
-      <DependentUpon>202204290031240_Maj Utilisateur Date_Modification Nullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204301347009_maj de bd.resx">
-      <DependentUpon>202204301347009_maj de bd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204301352475_maj de base de donnees.resx">
-      <DependentUpon>202204301352475_maj de base de donnees.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202205041915274_majdebasededonnees1.resx">
-      <DependentUpon>202205041915274_majdebasededonnees1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202205052344471_add Ticket.resx">
+      <DependentUpon>202205052344471_add Ticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

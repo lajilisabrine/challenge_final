@@ -37,9 +37,9 @@
         <form action="#" method="post">
             <div class="agile-field-txt">
                 <label>
-                    <i class="fa fa-user" aria-hidden="true"></i> Matricule :
+                    <i class="fa fa-user" aria-hidden="true"></i> Email :
                 </label>
-                <input type="text" name="Matricule" placeholder=" " required="" />
+                <input type="text" name="Email" placeholder=" " id="Email" required="" />
 
             </div>
             <div class="agile-field-txt">
@@ -47,26 +47,17 @@
                     <i class="fa fa-lock" aria-hidden="true"></i> password :
                 </label>
                 <a href="#" class="w3ls-right">forgot password?</a>
-                <input type="password" name="password" placeholder=" " required="" id="myInput" />
+                <input type="password" name="password" placeholder=" " required="" id="pass" />
 
                 <div class="agile_label">
                     <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
                     <label class="check" for="check3">Show password</label>
                 </div>
             </div>
-            <script>
-                function myFunction() {
-                    var x = document.getElementById("myInput");
-                    if (x.type === "password") {
-                        x.type = "text";
-                    } else {
-                        x.type = "password";
-                    }
-                }
-            </script>
+
             <!-- //script for show password -->
             <div class="w3ls-login  w3l-sub">
-                <input type="submit" value="Login">
+                <input type="button" value="Login" id="BtnLogin">
             </div>
         </form>
     </div>
@@ -79,74 +70,127 @@
         </p>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('keypress', function (e) {
+            if(e.which == 13) {
 
-    @*@using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+                var Email = $("#Email").val();
+                var pass = $("#pass").val();
+                console.log("login", Login, "pass", pass);
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url:  "@Url.Action("login", "Shared")",
+                    data: { Email, pass },
+                    success: function (data) {
+                        console.log("data", data);
+                        if (data == "Admin") {
 
-            <div class="form-horizontal">
-                <h4>User</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            location.href = "/Admin/index";
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Matricule, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Matricule, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                        } else if (data == "User") {
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            location.href = "/User/index";
+                        }
+                        else if (data == "Manager") {
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Poste, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Poste, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Poste, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                            location.href = "/Manager/index";
+                        }
+                        else if (data == "RH") {
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Manager, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Manager, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
-        }
+                            location.href = "/RH/index";
+                        }
+                        else if (data == "Mot De Passe Incorrecte") {
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>*@
+                            Swal.fire({
+                                showCloseButton: true,
+                                title: "Attention!",
+                                text: "Mot De Passe Incorrecte",
+                                icon: "warning",
+                                confirmButtonColor: '#3085d6',
+                                button: "OK",
+                                dangerMode: true
+                            })
+                        }
+                        else if (data == "Utilisateur Invalide") {
+
+                            Swal.fire({
+                                showCloseButton: true,
+                                title: "Attention!",
+                                text: "Utilisateur Invalide",
+                                icon: "warning",
+                                confirmButtonColor: '#3085d6',
+                                button: "OK",
+                                dangerMode: true
+                            })
+                        }
+                    }
+                });
+            }
+        });
+        $("#BtnLogin").click(function () {
+
+            var Email = $("#Email").val();
+            var pass = $("#pass").val();
+            console.log("Email", Email, "pass", pass);
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url:  "@Url.Action("login", "Shared")",
+                    data: { Email, pass },
+                    success: function (data) {
+                        console.log("data", data);
+                        if (data == "Admin") {
+
+                            location.href = "/Admin/index";
+
+                        } else if (data == "User") {
+
+                            location.href = "/User/index";
+                        }
+                        else if (data == "Manager") {
+
+
+                            location.href = "/Manager/index";
+                        }
+                        else if (data == "RH") {
+
+
+                            location.href = "/RH/index";
+                        }
+                        else if (data == "Mot De Passe Incorrecte") {
+
+                            Swal.fire({
+                                showCloseButton: true,
+                                title: "Attention!",
+                                text: "Mot De Passe Incorrecte",
+                                icon: "warning",
+                                confirmButtonColor: '#3085d6',
+                                button: "OK",
+                                dangerMode: true
+                            })
+                        }
+                        else if (data == "Utilisateur Invalide") {
+
+                            Swal.fire({
+                                showCloseButton: true,
+                                title: "Attention!",
+                                text: "Utilisateur Invalide",
+                                icon: "warning",
+                                confirmButtonColor: '#3085d6',
+                                button: "OK",
+                                dangerMode: true
+                            })
+                        }
+                    }
+                });
+        });
+    </script>
 </body>
 </html>
 

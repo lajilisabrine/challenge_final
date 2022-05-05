@@ -14,7 +14,7 @@ namespace Crud.Models
         }
 
         public DbSet<Utilisateur> Utilisateurs { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<CvFile> CvFiles { get; set; }
         public DbSet<Entretein> Entreteins { get; set; }
         public DbSet<Formation> Formations { get; set; }

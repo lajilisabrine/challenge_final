@@ -7,13 +7,13 @@ namespace Crud.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class MajUtilisateurDate_ModificationNullable : IMigrationMetadata
+    public sealed partial class addmatricule : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MajUtilisateurDate_ModificationNullable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addmatricule));
         
         string IMigrationMetadata.Id
         {
-            get { return "202204290031240_Maj Utilisateur Date_Modification Nullable"; }
+            get { return "202205052243311_add matricule"; }
         }
         
         string IMigrationMetadata.Source

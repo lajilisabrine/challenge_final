@@ -39,7 +39,7 @@ namespace Crud.Models
             get { return Prenom + " " + Nom; }
             set { _fullName = value; }
         }
-
+        public string Matricule { get; set; }
         private String _fullName;
 
         public string Num_Tel { get; set; }
@@ -61,7 +61,7 @@ namespace Crud.Models
         public DateTime? Date_Modification { get;set; }
        
         public virtual CvFile CV { get; set; }
-        public ICollection<Contact> Contacts { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
         public ICollection<Entretein> Entreteins { get; set; }
         public ICollection<Formation> Formations { get; set; }
 

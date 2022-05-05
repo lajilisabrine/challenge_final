@@ -1,0 +1,408 @@
+﻿
+@{
+    ViewBag.Title = "ListeUtilisateurs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" rel="stylesheet" media="all">
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Accueil</a></li>
+                    <li class="breadcrumb-item active">Liste Clients</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<!-- Main content -->
+<section class="content">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Liste  Clients</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="col-sm-12 col-md-12" style=" text-align: right;">
+                <a class="btn btn-app" style="height: 60px;" id="AjouterClient">
+                    <i class="fas fa-plus"></i> Ajouter
+                </a>
+                <a class="btn btn-app edit" style="height: 60px;" id="ModifierClient">
+                    <i class="fas fa-edit"></i> Modifier
+                </a>
+                <a class="btn btn-app delete" style="height: 60px;" id="SupprimerClient">
+                    <i class="fas fa-trash"></i> Supprimer
+                </a>
+            </div>
+
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th style="visibility: hidden"></th>
+                                    <th>Code</th>
+                                    <th>Intitule</th>
+                                    <th>Ville</th>
+                                    <th>Gouvernorat</th>
+                                    <th>CA</th>
+                                    <th>Zone</th>
+                                    <th>Representant</th>
+                                    <th>Circuit</th>
+                                    <th>Ensigne</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+
+<!-- Modal Ajouter Client -->
+<div class="modal fade" id="ModalAjouterClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Client</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3"><label>Code</label></div>
+                    <div class="col-9"><input type="text" class="form-control" id="ModalAjouterClientCode" readonly /></div>
+
+                </div>
+                <div class="row">
+                    <div class="col-3"><label>Intitulè</label></div>
+                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitulè" id="ModalAjouterClientintitule" /></div>
+
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="btnsave">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Ajouter Client -->
+<!-- Modal Modifier Client -->
+<div class="modal fade" id="ModalModifierClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier Client</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3"><label>Code</label></div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="ModalModifierClientCode" readonly />
+
+
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-3"><label>Intitule</label></div>
+                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitule" id="ModalModifierClientintitule" /></div>
+
+                </div>
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" id="ModelModifierClientbtnsave">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modifier Client -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.js"></script>
+
+
+<script>
+    let selectedRows;
+    var table;
+    $(document).ready(function () {
+        table= $('#tableclient').DataTable({
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            select: {
+                style: 'os',
+                selector: 'td:first-child'
+            }
+        });
+        table.on('select deselect', function () {
+            selectedRows = table.rows({ selected: true }).data();
+            var Jsondata = JSON.stringify(table.row({ selected: true }).data());
+
+            if (Jsondata !== undefined) {
+                console.log("selectedRows", selectedRows[0]);
+                toastr.success('Vous avez sélectionné Client :' + selectedRows[0][2] + ' code :' + selectedRows[0][1]);
+                $('#Code').val(selectedRows[0][1]);
+
+
+
+            } else {
+                var count = table.rows({ selected: true }).count();
+                if (count == 0) {
+                    toastr.error('Aucun client sélectionné .');
+                }
+
+
+            }
+
+
+        });
+    });
+
+    $('#AjouterClient').click(function () {
+
+
+
+            $.ajax({
+                    dataType: "json",
+                    type: "Get",
+                    url:  "@Url.Action("GetLasteClient", "Admin")",
+                success: function (data) {
+                    console.log("GetLasteClient ", data);
+                    $('#ModalAjouterClientCode').val(data);
+                    $('#ModalAjouterClient').modal('show');
+                    }
+            });
+    });
+    $('#ModelModifierClientbtnsave').click(function () {
+        var Client = {};
+        Client.Code = $('#ModalModifierClientCode').val();
+
+        Client.Intitule = $('#ModalModifierClientintitule').val();
+
+        Client.Ville = $('#ModalModifierClientVille').val();
+        Client.Gouvernorat = $('#ModalModifierClientGouvernorat').val();
+
+        var Zone = {};
+        Zone.Code = $('#ModelModifierClientZone').val();
+        Client.Zone = Zone;
+
+
+        var Circuit = {};
+        Circuit.Code = $('#ModelModifierClientCircuit').val();
+        Client.Circuit = Zone;
+
+        var Representant = {};
+        Representant.Code = $('#ModelModifierClientRepresentant').val();
+        Client.Representant = Zone;
+
+        console.log("Client", Client);
+
+            $.ajax({
+                     dataType: "json",
+                      async: false,
+                    type: "Post",
+                    url: "@Url.Action("ModifierClient", "Admin")",
+                    data: { Client},
+                success: function (data) {
+                    console.log("data", data);
+                    if (data == "Sucess") {
+
+                        Swal.fire({
+                            showCloseButton: true,
+                            title: "succès",
+                            text: "Enregistrement terminé avec succès ",
+                            icon: "success",
+                            button: "OK",
+                            dangerMode: true
+                        }).then(function () {
+
+                            location.reload();
+                        });
+
+                    }
+                }
+
+            });
+
+    })
+    $('#ModifierClient').click(function () {
+        var count = table.rows({ selected: true }).count();
+        if (count == 0) {
+            toastr.error('Aucun client sélectionné .');
+            return;
+        }
+        var IntituleZone = selectedRows[0][6];
+        var IntituleRepresentant = selectedRows[0][7];
+        var IntituleCircuit = selectedRows[0][8];
+         $.ajax({
+                     dataType: "json",
+                      async: false,
+                    type: "Post",
+                    url: "@Url.Action("GetCode", "Admin")",
+                     data: { IntituleZone, IntituleRepresentant, IntituleCircuit },
+                   success: function (data) {
+                       console.log("data", data);
+                       $('#ModelModifierClientZone').val(data.CodeZone);
+                       $('#ModelModifierClientCircuit').val(data.CodeCircuit);
+                       $('#ModelModifierClientRepresentant').val(data.CodeRepresentant);
+                  }
+
+            });
+
+
+
+        console.log("selectedRows", selectedRows[0]);
+        console.log("code", selectedRows[0][1]);
+
+        $('#ModalModifierClientCode').val(selectedRows[0][1]);
+        $('#ModalModifierClient_Code').val(selectedRows[0][1]);
+
+        $('#ModalModifierClientintitule').val(selectedRows[0][2]);
+
+        $('#ModalModifierClientGouvernorat').val(selectedRows[0][4]);;
+        $('#ModalModifierClientVille').val(selectedRows[0][3]);
+
+
+
+        $('#ModalModifierClient').modal('show');
+        //  $('#ModalModifierClient').modal('hide');
+
+
+    });
+    $('#SupprimerClient').click(function () {
+        var count = table.rows({ selected: true }).count();
+        if (count == 0) {
+            toastr.error('Aucun client sélectionné .');
+            return;
+        }
+        var CodeClient = selectedRows[0][1];
+
+         $.ajax({
+                    dataType: "json",
+                    type: "Post",
+                    url: "@Url.Action("DeleteClient", "Admin")",
+                    data: { CodeClient },
+                   success: function (data) {
+                  if (data == "Sucess") {
+
+                       Swal.fire({
+                        showCloseButton: true,
+                        title: "succès",
+                        text: "Enregistrement terminé avec succès ",
+                        icon: "success",
+                        button: "OK",
+                        dangerMode: true
+                    }).then(function () {
+
+                        location.reload();
+                    });
+                  }
+              }
+            });
+
+    })
+    $('#btnsave').click(function () {
+
+        var intitule = $('#ModalAjouterClientintitule').val();
+        var Zone = $('#ModalAjouterClientZone').val();
+        var Circuit = $('#ModalAjouterClientCircuit').val();
+        var Representant = $('#ModalAjouterClientRepresentant').val();
+        var Gouvernorat = $('#ModalAjouterClientGouvernorat').val();
+        var Ville = $('#ModalAjouterClientVille').val();
+        var Ensigne = $('#ModalAjouterEnsigne').val();
+        if (intitule.trim() =='') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'intitule Client est vide !',
+                footer: ''
+            })
+            return;
+        }
+        var Client = {}   ;
+        Client.Intitule = intitule;
+        Client.Gouvernorat = Gouvernorat;
+        Client.Ville = Ville;
+
+        var CodeZone = Zone;
+        var CodeCircuit = Circuit;
+        var CodeRepresentant = Representant;
+        var CodeEnsigne = Ensigne;
+
+
+          $.ajax({
+                    dataType: "json",
+                    type: "Post",
+                    url: "@Url.Action("SaveClient", "Admin")",
+              data: { Client, CodeZone, CodeCircuit, CodeRepresentant, CodeEnsigne},
+                   success: function (data) {
+                  if (data == "Sucess") {
+
+                       Swal.fire({
+                        showCloseButton: true,
+                        title: "succès",
+                        text: "Enregistrement terminé avec succès ",
+                        icon: "success",
+                        button: "OK",
+                        dangerMode: true
+                    }).then(function () {
+
+                        $('#ModalAjouterClient').modal('hide');
+                        $('#ModalAjouterClientintitule').val('');
+                        location.reload();
+                    });
+                  }
+              }
+            });
+
+
+    });
+
+</script>
+
+

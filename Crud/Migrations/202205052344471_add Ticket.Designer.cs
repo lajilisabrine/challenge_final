@@ -7,13 +7,13 @@ namespace Crud.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class Ajouternumero : IMigrationMetadata
+    public sealed partial class addTicket : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Ajouternumero));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addTicket));
         
         string IMigrationMetadata.Id
         {
-            get { return "202204282349511_Ajouter numero"; }
+            get { return "202205052344471_add Ticket"; }
         }
         
         string IMigrationMetadata.Source

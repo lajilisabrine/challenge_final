@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Crud.Controllers
 {
-    public class AdminController : Controller
+    public class ManagerController : Controller
     {
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
@@ -15,24 +15,8 @@ namespace Crud.Controllers
                 RedirectToAction("login", "shared").ExecuteResult(this.ControllerContext);
             }
         }
-
-        public Crud.Models.AppContext db { get; private set; }
-        public AdminController()
-        {
-            db = new Crud.Models.AppContext();
-        }
-
-        // GET: Admin
+        // GET: Manager
         public ActionResult Index()
-        {
-            return View();
-        }
-       
-        public ActionResult ListeUtilisateurs()
-        {
-            return View(db.Utilisateurs.ToList());
-        }
-        public ActionResult Test()
         {
             return View();
         }

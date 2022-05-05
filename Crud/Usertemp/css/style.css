@@ -328,28 +328,28 @@ a.w3ls-right {
     text-transform: capitalize;
     letter-spacing: 2px;
 }
-.w3ls-login input[type=submit] {
-    color: #f6f6f6;
-    width: 100%;
-    padding: 0.5em 0;
-    font-size: 1.1em;
-    letter-spacing: 2px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: #7d2935;
-    font-family: 'Source Sans Pro', sans-serif;
-    transition: 0.5s all ease;
-    -webkit-transition: 0.5s all ease;
-    -moz-transition: 0.5s all ease;
-    -o-transition: 0.5s all ease;
-    -ms-transition: 0.5s all ease;
+.w3ls-login input[type=button] {
+	color: #f6f6f6;
+	width: 100%;
+	padding: 0.5em 0;
+	font-size: 1.1em;
+	letter-spacing: 2px;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background: #7d2935;
+	font-family: 'Source Sans Pro', sans-serif;
+	transition: 0.5s all ease;
+	-webkit-transition: 0.5s all ease;
+	-moz-transition: 0.5s all ease;
+	-o-transition: 0.5s all ease;
+	-ms-transition: 0.5s all ease;
 }
 
-.w3ls-login input[type=submit]:hover {
-	background: #000;
-	color: #fff;
-}
+	.w3ls-login input[type=button]:hover {
+		background: #000;
+		color: #fff;
+	}
 
 /*--copyright--*/
 

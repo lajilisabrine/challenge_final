@@ -7,10 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Crud.Models
 {
-    public class Contact
+    public class Ticket
     {
 
-        public Contact()
+        public Ticket()
         {
             DateCreation = DateTime.Now;
         }
