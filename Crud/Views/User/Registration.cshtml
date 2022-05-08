@@ -1,4 +1,4 @@
-﻿@model Crud.Models.User
+﻿@*@model Crud.Models.User
 
 @{
     Layout = null;
@@ -41,52 +41,52 @@
                     <i class="fa fa-user" aria-hidden="true"></i> Username :
                 </label>
                 @*<input type="text" name="name" placeholder=" " required="" />*@
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
-            </div>
+                @*@Html.EditorFor(model => model.Username, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })*@
+            @*</div>
             <div class="agile-field-txt">
                 <label>
                     <i class="fa fa-user" aria-hidden="true"></i> Matricule :
-                </label>
+                </label>*@
                 @*<input type="text" name="name" placeholder=" " required="" />*@
-                @Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+                @*@Html.EditorFor(model => model.Matricule, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
             </div>
             <div class="agile-field-txt">
                 <label>
                     <i class="fa fa-envelope-o" aria-hidden="true"></i> Email :
-                </label>
+                </label>*@
                 @*<input type="text" name="name" placeholder=" " required="" />*@
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+                @*@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
             </div>
             <div class="agile-field-txt">
                 <label>
                     <i class="fa fa-briefcase" aria-hidden="true"></i> Poste :
-                </label>
+                </label>*@
                 @*<input type="text" name="name" placeholder=" " required="" />*@
-                @Html.EditorFor(model => model.Poste, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+                @*@Html.EditorFor(model => model.Poste, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
             </div>
             <div class="agile-field-txt">
                 <label>
                     <i class="fa fa-user" aria-hidden="true"></i> Manager :
-                </label>
+                </label>*@
                 @*<input type="text" name="name" placeholder=" " required="" />*@
-                @Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
+                @*@Html.EditorFor(model => model.Manager, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = " ", @required = "" } })
             </div>
 
             <div class="agile-field-txt">
                 <label>
                     <i class="fa fa-lock" aria-hidden="true"></i> password :
-                </label>
+                </label>*@
                 @*<a href="#" class="w3ls-right">forgot password?</a>*@
                 @*<input type="password" name="password" placeholder=" " required="" id="myInput" />*@
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @name = "password", @placeholder = " ", @required = "", @id = "myInput" } })
+                @*@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @name = "password", @placeholder = " ", @required = "", @id = "myInput" } })
                 
                 <div class="agile_label">
                     <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
                     <label class="check" for="check3">Show password</label>
                 </div>
             </div>
-            <script>
-                function myFunction() {
+            @*<script>*@
+                @*function myFunction() {
                     var x = document.getElementById("myInput");
                     if (x.type === "password") {
                         x.type = "text";
@@ -94,22 +94,22 @@
                     } else {
                         x.type = "password";
                     }
-                }
-            </script>
+                }*@
+            @*</script>*@
             <!-- //script for show password -->
-            <div class="w3ls-login  w3l-sub">
+            @*<div class="w3ls-login  w3l-sub">
                 <input type="submit" value="Login">
             </div>
         </form>
-    </div>
+    </div>*@
     <!-- //form ends here -->
     <!--copyright-->
-    <div class="copy-wthree">
+    @*<div class="copy-wthree">
         <p>
             Universite Centrale
             <a href="http://w3layouts.com/" target="_blank">W3layouts</a>
         </p>
-    </div>
+    </div>*@
 
 
 
@@ -184,5 +184,5 @@
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>*@
-</body>
-</html>
+@*</body>
+</html>*@

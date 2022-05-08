@@ -36,5 +36,32 @@ namespace Crud.Controllers
         {
             return View();
         }
+     
+            public ActionResult RechercheUtilisateurs()
+        {
+            return View();
+        }
+        public ActionResult ListedesCV()
+        {
+            return View();
+        }
+        
+             public ActionResult ListeFormations()
+        {
+            return View();
+        }
+        
+    
+
+        
+           public ActionResult ListeTICKETS()
+        {
+            return View();
+        }
+        
+            public ActionResult ListeEntretiens()
+        {
+            return View();
+        }
     }
 }

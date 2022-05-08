@@ -21,5 +21,25 @@ namespace Crud.Controllers
             return View();
         }
         
+            public ActionResult monprofil()
+        {
+            return View();
+        }
+        public ActionResult demandeFormations()
+        {
+            return View();
+        }
+        public ActionResult Entretienencours()
+        {
+            return View();
+        }
+        public ActionResult monhistorique()
+        {
+            return View();
+        }
+        public ActionResult demandeTICKETS()
+        {
+            return View();
+        }
     }
 }

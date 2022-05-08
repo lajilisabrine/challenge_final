@@ -182,7 +182,7 @@
                         <img src="~/frontend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">Admin</a>
                     </div>
                 </div>
                 <!-- SidebarSearch Form -->
@@ -201,7 +201,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-            with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
 
 
 
@@ -219,92 +219,76 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">ZONES</li>
                         <li class="nav-item">
-                            <a href="@Url.Action("ListeZones","Admin")" class="nav-link">
-                                <i class="nav-icon fa fa-street-view"></i>
+                            <a href="@Url.Action("RechercheUtilisateurs","Admin")" class="nav-link">
+                                <i class="nav-icon fas fa-search"></i>
                                 <p>
-                                    ZONES
+                                    Recherche Utilisateur
 
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">CIRCUITS </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("ListeCircuits","Admin")" class="nav-link">
-                                <i class="nav-icon fa fa-map-marker"></i>
-                                <p>
-                                    CIRCUITS
+                        @*<li class="nav-header">Formations</li>
+        <li class="nav-item">
+            <a href="@Url.Action("ListeZones","Admin")" class="nav-link">
+                <i class="nav-icon fa fa-street-view"></i>
+                <p>
+                    Liste Formations
 
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header">ENSIGNES</li>
+                </p>
+            </a>
+        </li>*@
+                        @*<li class="nav-header">CIRCUITS </li>
+        <li class="nav-item">
+            <a href="@Url.Action("ListeCircuits","Admin")" class="nav-link">
+                <i class="nav-icon fa fa-map-marker"></i>
+                <p>
+                    CIRCUITS
+
+                </p>
+            </a>
+        </li>*@
+                        <li class="nav-header">Gestion des CV</li>
                         <li class="nav-item">
-                            <a href="@Url.Action("ListeEnsignes","Admin")" class="nav-link">
+                            <a href="@Url.Action("ListedesCV","Admin")" class="nav-link">
                                 <i class="nav-icon fa fa-window-maximize"></i>
                                 <p>
-                                    ENSIGNES
+                                    CV
 
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">REPRESENTANTS </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("ListeRepresentants","Admin")" class="nav-link">
-                                <i class="nav-icon  fa fa-male"></i>
-                                <p>
-                                    REPRESENTANTS
 
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header">ARTICLES </li>
+
+                        <li class="nav-header">Formations </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("ListeArticles","Admin")" class="nav-link">
+                            <a href="@Url.Action("ListeFormations","Admin")" class="nav-link">
                                 <i class="nav-icon fa fa-archive"></i>
                                 <p>
-                                    ARTICLES
+                                    Formations
 
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">FAMILLES </li>
+                        
+                        <li class="nav-header">TICKETS </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("ListeFamilles","Admin")" class="nav-link">
+                            <a href="@Url.Action("ListeTICKETS","Admin")" class="nav-link">
                                 <i class="nav-icon fa fa-list-ul"></i>
                                 <p>
-                                    FAMILLES
+                                    TICKETS
 
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-header">GAMMES </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("ListeGammes","Admin")" class="nav-link">
-                                <i class="nav-icon fa fa-tags"></i>
-                                <p>
-                                    GAMMES
 
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header"> BONS DE COMMANDES </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("Listebondecommandes","Admin")" class="nav-link">
-                                <i class="nav-icon fa  fa-cart-plus"></i>
-                                <p>
-                                    BONS DE COMMANDES
 
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header"> Statistiques </li>
+                        <li class="nav-header"> Entretiens </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("Statistiques","Admin")" class="nav-link">
+                            <a href="@Url.Action("ListeEntretiens","Admin")" class="nav-link">
                                 <i class="nav-icon fas fa-align-right"></i>
                                 <p>
-                                    Statistiques
+                                    Entretiens
 
                                 </p>
                             </a>
@@ -313,7 +297,7 @@
                             <a href="@Url.Action("Logout","Shared")" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <p>
-                                    Déconnxion
+                                    Déconnexion
 
                                 </p>
                             </a>
@@ -342,11 +326,11 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            @*<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 3.2.0
-            </div>
+            </div>*@
         </footer>
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">

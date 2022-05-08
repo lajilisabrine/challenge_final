@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "ListeCollaborateurs";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Manager")">Accueil</a></li>
+                    <li class="breadcrumb-item active">Liste Collaborateur</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<!-- Main content -->
+<section class="content">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Liste  Collaborateurs</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <div class="card-body">
+
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-3"><label>matricule</label></div>
+                <div class="row">
+                    <div class="col-sm-14">
+                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th style="visibility: hidden"></th>
+                                    @*<th>Matricule</th>*@
+                                    <th>Objectif</th>
+                                    <th>Ponderation</th>
+                                    <th>KPI</th>
+                                    <th>Commentaire</th>
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody></tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+</section>

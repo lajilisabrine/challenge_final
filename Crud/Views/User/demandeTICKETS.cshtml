@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "demandeTICKETS";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/frontend/plugins/fontawesome-free/css/all.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="~/frontend/dist/css/adminlte.min.css">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","User")">Accueil</a></li>
+                    <li class="breadcrumb-item active">demande de ticket</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-body row">
+            <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                <div class="">
+                    <h2><strong>Universite Centrale</strong></h2>
+                    <p class="lead mb-5">
+                        La Berge des Lac 1 Nauchateul<br>
+
+                    </p>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="form-group">
+                    <label for="inputName">Nom et prenom</label>
+                    <input type="text" id="inputName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">E-Mail</label>
+                    <input type="email" id="inputEmail" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="inputSubject">Objet</label>
+                    <input type="text" id="inputSubject" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="inputStatus">Type</label>
+                    <select id="inputStatus" class="form-control custom-select">
+                        <option selected disabled>Select one</option>
+                        <option>Reclamation</option>
+                        <option>Demande_Aide</option>
+                        <option>Demande_Modification</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputMessage">Message</label>
+                    <textarea id="inputMessage" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Send message">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

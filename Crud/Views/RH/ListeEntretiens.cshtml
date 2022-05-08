@@ -1,8 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "ListeUtilisateurs";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ListeEntretiens";
+    Layout = "~/Views/Shared/_LayoutRH.cshtml";
 }
+
+
 
 
 
@@ -17,8 +19,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Accueil</a></li>
-                    <li class="breadcrumb-item active">Liste Utilisateurs</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","RH")">Accueil</a></li>
+                    <li class="breadcrumb-item active">Liste des Entretiens</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,7 +33,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Liste  Utilisateurs</h3>
+            <h3 class="card-title">Liste des Entretiens</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -57,25 +59,21 @@
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                 <div class="row">
-                    <div class="col-sm-14">
+                    <div class="col-sm-12">
                         <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
                             <thead>
                                 <tr role="row">
                                     <th style="visibility: hidden"></th>
+
+                                    <th>Année</th>
                                     <th>Matricule</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
                                     <th>Nom et Prenom</th>
-                                    <th>Numero Telephone</th>
-                                    <th>Status</th>
-                                    <th>Role</th>
-                                    <th>Poste</th>
-                                    <th>Direction</th>
-                                    <th>Etablissement</th>
                                     <th>Manager</th>
-                                    <th>date de recrutement</th>
-
-
+                                    <th>Etat</th>
+                                    <th>Commantaire_Employee</th>
+                                    <th>Commantaire_Manager</th>
+                                    <th>Appreciation</th>
+                                    <th>Note</th>
 
                                 </tr>
 
@@ -97,7 +95,6 @@
 
 
 <!-- Modal Ajouter Client -->
-
 <div class="modal fade" id="ModalAjouterClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -107,7 +104,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-          
             <div class="modal-body">
                 <div class="row">
                     <div class="col-3"><label>Code</label></div>

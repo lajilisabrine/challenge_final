@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "monprofil";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/frontend/plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="~/frontend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet" href="~/frontend/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="~/frontend/plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="~/frontend/dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="~/frontend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="~/frontend/plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="~/frontend/plugins/summernote/summernote-bs4.min.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" rel="stylesheet" media="all">
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Manager")">Accueil</a></li>
+                    <li class="breadcrumb-item active">Mon profil</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="~/frontend/dist/img/user4-128x128.jpg"
+                                 alt="User profile picture">
+                        </div>
+                        <h3 class="profile-username text-center">Nom et Prenom</h3>
+                        <p class="text-muted text-center">Poste</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Matricule</b> <a class="float-right">1596</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Etablissement</b> <a class="float-right">Polytech</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Manager</b> <a class="float-right">1233</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- About Me Box -->
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card w-80">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+
+                            <li class="nav-item"><a class="nav-link active " href="#aboutme" data-toggle="tab">About Me</a></li>
+                            <li class="nav-item"><a class="nav-link  " href="#editProfil" data-toggle="tab">Edit Profil</a></li>
+
+                            <li class="nav-item"><a class="nav-link" href="#CV" data-toggle="tab">Mon cv</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane w-auto" id="aboutme">
+                                <form class="form-horizontal">
+                                    @*<div class="form-group row">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Matricule</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="">
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Nom et Prenom</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-offset-3 col-form-label">Numero telephone </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Direction </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Manager </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="editProfil">
+                                <form class="form-horizontal">
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Nom et Prenom</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputNum" class="col-sm-2 col-form-label">Numero</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputNum" placeholder="Numero de telephone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputposte" class="col-sm-2 col-form-label">Poste</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputPoste" placeholder="Poste">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> <a href="#">  I agree to the terms and conditions</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="CV">
+                                <form class="form-horizontal">
+                                    <div class="form-group row">
+
+                                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+
+                                        <label for="inputName" class="col-sm-2 col-form-label">CV</label>
+                                        <div class="custom-file col-sm-10">
+                                            <input type="file" class="custom-file-input" id="customFile" placeholder="Choose file">
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="inputstatus" class="col-sm-2 col-form-label">Status</label>
+                                        <select id="inputStatus" class="form-control custom-select  col-sm-10">
+                                            <option selected disabled>Select one</option>
+                                            <option>Active</option>
+                                            <option>Inactif</option>
+
+
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <!-- /.row -->
+    <!-- /.container-fluid -->
+</section>
+<script src="~/frontend/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="~/frontend/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/frontend/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+
+<script>
+   $(function () {
+        bsCustomFileInput.init();
+        });</script>

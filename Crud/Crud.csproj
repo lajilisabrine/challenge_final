@@ -2411,6 +2411,29 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Admin\ListeUtilisateurs.cshtml" />
+    <Content Include="Views\Admin\RechercheUtilisateurs.cshtml" />
+    <Content Include="Views\Admin\ListedesCV.cshtml" />
+    <Content Include="Views\Admin\ListeFormations.cshtml" />
+    <Content Include="Views\Admin\ListeTICKETS.cshtml" />
+    <Content Include="Views\Admin\ListeEntretiens.cshtml" />
+    <Content Include="Views\RH\RechercheUtilisateurs.cshtml" />
+    <Content Include="Views\RH\ListedesCV.cshtml" />
+    <Content Include="Views\RH\ListeFormations.cshtml" />
+    <Content Include="Views\RH\ListeTICKETS.cshtml" />
+    <Content Include="Views\RH\ListeEntretiens.cshtml" />
+    <Content Include="Views\RH\ListeUtilisateurs.cshtml" />
+    <Content Include="Views\Manager\ListeCollaborateurs.cshtml" />
+    <Content Include="Views\Manager\Entretienencours.cshtml" />
+    <Content Include="Views\Manager\demandeFormations.cshtml" />
+    <Content Include="Views\Manager\historiqueEquipe.cshtml" />
+    <Content Include="Views\Manager\monhistorique.cshtml" />
+    <Content Include="Views\Manager\demandeTICKETS.cshtml" />
+    <Content Include="Views\Manager\monprofil.cshtml" />
+    <Content Include="Views\User\monprofil.cshtml" />
+    <Content Include="Views\User\demandeFormations.cshtml" />
+    <Content Include="Views\User\Entretienencours.cshtml" />
+    <Content Include="Views\User\monhistorique.cshtml" />
+    <Content Include="Views\User\demandeTICKETS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

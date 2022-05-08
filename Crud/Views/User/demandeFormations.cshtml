@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "demandeFormations";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/frontend/plugins/fontawesome-free/css/all.min.css">
+<!-- Ionicons -->
+
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="~/frontend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- iCheck -->
+<link rel="stylesheet" href="~/frontend/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- JQVMap -->
+<link rel="stylesheet" href="~/frontend/plugins/jqvmap/jqvmap.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="~/frontend/dist/css/adminlte.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="~/frontend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="~/frontend/plugins/daterangepicker/daterangepicker.css">
+<!-- summernote -->
+<link rel="stylesheet" href="~/frontend/plugins/summernote/summernote-bs4.min.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/frontend/plugins/fontawesome-free/css/all.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="~/frontend/dist/css/adminlte.min.css">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","User")">Accueil</a></li>
+                    <li class="breadcrumb-item active">demande de formation</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<section class="content">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">demande de formation</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.card-tools -->
+        </div>
+
+
+
+
+        @*<div class="col-md-6">
+            <div class="row">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">General</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>*@
+
+        <div class="card-body dt-center">
+            <div class="form-group col-7">
+
+                <label for="inputName">Matricule</label>
+                <input type="text" id="Matricule" class="form-control">
+            </div>
+            <div class="form-group col-7">
+                <label for="inputClientCompany">Nom</label>
+                <input type="text" id="inputNom" class="form-control">
+            </div>
+            <div class="form-group col-7">
+                <label for="inputStatus">Type Formation</label>
+                <select id="inputStatus" class="form-control custom-select">
+                    <option selected disabled>Select one</option>
+                    <option>Informatique</option>
+                    <option>Comptabilité</option>
+
+
+                </select>
+            </div>
+            @*<div class="form-group col-7">
+            <label for="inputProjectLeader">Date Debut</label>
+            <input type="datetime" id="inputProjectLeader" class="form-control">
+        </div>*@
+            <div class="form-group col-7">
+                <label>Date debut</label>
+                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-7">
+                <label>Date fin</label>
+                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group col-7">
+                <label for="inputDescription">Commentaire</label>
+                <textarea id="inputDescription" class="form-control" rows="4"></textarea>
+            </div>
+
+
+
+            <div>
+
+                <input type="submit" value="Envoyer" class="btn btn-success float-right">
+            </div>
+        </div>
+                    <!-- /.card-body -->
+
+                </div>
+
+                <!-- /.card -->
+                <!-- /.card-body -->
+                <!-- /.card -->
+
+
+
+
+
+</section>
+
+<script src="~/frontend/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="~/frontend/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="~/frontend/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="~/frontend/plugins/moment/moment.min.js"></script>
+<script src="~/frontend/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="~/frontend/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="~/frontend/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="~/frontend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="~/frontend/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- BS-Stepper -->
+<script src="~/frontend/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<!-- dropzonejs -->
+<script src=".~/frontend/plugins/dropzone/min/dropzone.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/frontend/dist/js/adminlte.min.js"></script>

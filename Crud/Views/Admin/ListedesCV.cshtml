@@ -1,9 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "ListeUtilisateurs";
+    ViewBag.Title = "ListedesCV";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" rel="stylesheet" media="all">
@@ -18,7 +17,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Accueil</a></li>
-                    <li class="breadcrumb-item active">Liste Utilisateurs</li>
+                    <li class="breadcrumb-item active">Liste CV</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,7 +30,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Liste  Utilisateurs</h3>
+            <h3 class="card-title">Liste des CV</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -43,13 +42,13 @@
         <!-- /.card-header -->
         <div class="card-body">
             <div class="col-sm-12 col-md-12" style=" text-align: right;">
-                <a class="btn btn-app" style="height: 60px;" id="AjouterClient">
+                <a class="btn btn-app" style="height: 60px;" id="AjouterCV">
                     <i class="fas fa-plus"></i> Ajouter
                 </a>
-                <a class="btn btn-app edit" style="height: 60px;" id="ModifierClient">
+                <a class="btn btn-app edit" style="height: 60px;" id="ModifierCV">
                     <i class="fas fa-edit"></i> Modifier
                 </a>
-                <a class="btn btn-app delete" style="height: 60px;" id="SupprimerClient">
+                <a class="btn btn-app delete" style="height: 60px;" id="SupprimerCV">
                     <i class="fas fa-trash"></i> Supprimer
                 </a>
             </div>
@@ -57,26 +56,20 @@
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                 <div class="row">
-                    <div class="col-sm-14">
+                    <div class="col-sm-12">
                         <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
                             <thead>
                                 <tr role="row">
                                     <th style="visibility: hidden"></th>
                                     <th>Matricule</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
                                     <th>Nom et Prenom</th>
-                                    <th>Numero Telephone</th>
+                                    <th>Nom CV</th>
+                                    <th>Taille</th>
+                                    <th>date Creation</th>
+                                    <th>date Mise A JOUR</th>
                                     <th>Status</th>
-                                    <th>Role</th>
-                                    <th>Poste</th>
-                                    <th>Direction</th>
-                                    <th>Etablissement</th>
-                                    <th>Manager</th>
-                                    <th>date de recrutement</th>
-
-
-
+                                    <th>URL</th>
+                                    
                                 </tr>
 
                             </thead>
@@ -97,7 +90,6 @@
 
 
 <!-- Modal Ajouter Client -->
-
 <div class="modal fade" id="ModalAjouterClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -107,7 +99,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-          
             <div class="modal-body">
                 <div class="row">
                     <div class="col-3"><label>Code</label></div>
@@ -410,5 +401,3 @@
     });
 
 </script>
-
-

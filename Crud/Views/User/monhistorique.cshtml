@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "monhistorique";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" rel="stylesheet" media="all">
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","User")">Accueil</a></li>
+                    <li class="breadcrumb-item active">Mon Historique</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<!-- Main content -->
+<section class="content">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Mon Historique</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="col-sm-12 col-md-12" style=" text-align: right;">
+                <a class="btn btn-app" style="height: 60px;" id="detailsEntretien">
+                    <i class="fas fa-plus"></i> Details
+                </a>
+
+            </div>
+
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th style="visibility: hidden"></th>
+
+                                    <th>Année</th>
+                                    <th>Matricule</th>
+                                    <th>Nom et Prenom</th>
+                                    <th>Manager</th>
+                                    <th>Commantaire_Employee</th>
+                                    <th>Commantaire_Manager</th>
+                                    <th>Appreciation</th>
+                                    <th>Note</th>
+
+
+                                </tr>
+
+                            </thead>
+                            <tbody></tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
