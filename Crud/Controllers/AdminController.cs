@@ -25,22 +25,27 @@ namespace Crud.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            ViewBag.NbUtilisatue = db.Utilisateurs.Where(x => x.Role != Models.Role.Admin).ToList().Count();
+            ViewBag.NBFormation = db.Formations.ToList().Count();
+            // view bag 
+            // viw data
+            
+
             return View();
         }
        
         public ActionResult ListeUtilisateurs()
         {
-            return View(db.Utilisateurs.ToList());
+            // Using Model 
+            var ListeUtilisateurs = db.Utilisateurs.Where(x=>x.Role!=Models.Role.Admin).ToList();
+            return View(ListeUtilisateurs);
         }
         public ActionResult Test()
         {
             return View();
         }
      
-            public ActionResult RechercheUtilisateurs()
-        {
-            return View();
-        }
+    
         public ActionResult ListedesCV()
         {
             return View();

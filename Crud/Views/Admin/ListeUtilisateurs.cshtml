@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Crud.Models.Utilisateur>
 @{
     ViewBag.Title = "ListeUtilisateurs";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -43,7 +43,7 @@
         <!-- /.card-header -->
         <div class="card-body">
             <div class="col-sm-12 col-md-12" style=" text-align: right;">
-                <a class="btn btn-app" style="height: 60px;" id="AjouterClient">
+                <a class="btn btn-app" style="height: 60px;" id="AjouterUtilisateur">
                     <i class="fas fa-plus"></i> Ajouter
                 </a>
                 <a class="btn btn-app edit" style="height: 60px;" id="ModifierClient">
@@ -64,10 +64,8 @@
                                     <th style="visibility: hidden"></th>
                                     <th>Matricule</th>
                                     <th>Email</th>
-                                    <th>Password</th>
                                     <th>Nom et Prenom</th>
-                                    <th>Numero Telephone</th>
-                                    <th>Status</th>
+                                    <th>Telephone</th>
                                     <th>Role</th>
                                     <th>Poste</th>
                                     <th>Direction</th>
@@ -80,7 +78,32 @@
                                 </tr>
 
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+
+                                @foreach (var Utilisateur in Model)
+                                {
+                                    <tr>
+                                        <td></td>
+                                        <th>@Utilisateur.Matricule</th>
+                                        <th>@Utilisateur.Email</th>
+                                        <th>@Utilisateur.FullName</th>
+                                        <th>@Utilisateur.Num_Tel</th>
+                                        <th>@Utilisateur.Role</th>
+                                        <th>@Utilisateur.Poste</th>
+                                        <th>@Utilisateur.Direction</th>
+                                        <th>@Utilisateur.Etablissement</th>
+                                        <th>@Utilisateur.Manager</th>
+                                        <th>@Utilisateur.Date_Recrutement</th>
+
+
+                                    </tr>
+
+
+                                }
+
+
+
+                            </tbody>
 
                         </table>
                     </div>
@@ -96,30 +119,79 @@
 </section>
 
 
-<!-- Modal Ajouter Client -->
+<!-- Modal Ajouter Utilisateur -->
 
-<div class="modal fade" id="ModalAjouterClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalAjouterUtilisateur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter Client</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Utilisateur</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-          
+
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-3"><label>Code</label></div>
-                    <div class="col-9"><input type="text" class="form-control" id="ModalAjouterClientCode" readonly /></div>
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Nom</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurNom" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Prenom</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurPrenom" /></div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-3"><label>Intitulè</label></div>
-                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitulè" id="ModalAjouterClientintitule" /></div>
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Email</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurEmail" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Password</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurPassword" /></div>
+                    </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Matricule</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Telephone</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Role</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Poste</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Direction</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Etablissement</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Manager</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Date_Recrutement</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div> 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -128,8 +200,9 @@
         </div>
     </div>
 </div>
-<!-- Modal Ajouter Client -->
-<!-- Modal Modifier Client -->
+<!-- Modal Ajouter Utilisateur -->
+
+<!-- Modal Modifier Utilisateur -->
 <div class="modal fade" id="ModalModifierClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -141,19 +214,64 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-3"><label>Code</label></div>
-                    <div class="col-9">
-                        <input type="text" class="form-control" id="ModalModifierClientCode" readonly />
-
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Nom</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurNom" /></div>
                     </div>
-
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Prenom</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurPrenom" /></div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-3"><label>Intitule</label></div>
-                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitule" id="ModalModifierClientintitule" /></div>
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Email</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurEmail" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Password</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurPassword" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Matricule</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Telephone</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Role</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Poste</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Direction</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Etablissement</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Manager</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Date_Recrutement</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
                 </div>
 
             </div>
@@ -165,7 +283,7 @@
     </div>
 </div>
 
-<!-- Modal Modifier Client -->
+<!-- Modal Modifier Utilisateur -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.js"></script>
 
@@ -209,20 +327,11 @@
         });
     });
 
-    $('#AjouterClient').click(function () {
+    $('#AjouterUtilisateur').click(function () {
 
 
-
-            $.ajax({
-                    dataType: "json",
-                    type: "Get",
-                    url:  "@Url.Action("GetLasteClient", "Admin")",
-                success: function (data) {
-                    console.log("GetLasteClient ", data);
-                    $('#ModalAjouterClientCode').val(data);
-                    $('#ModalAjouterClient').modal('show');
-                    }
-            });
+        $('#ModalAjouterUtilisateur').modal('show');
+          
     });
     $('#ModelModifierClientbtnsave').click(function () {
         var Client = {};

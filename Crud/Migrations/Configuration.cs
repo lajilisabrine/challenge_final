@@ -22,10 +22,10 @@
             {
                 
 
-                context.Utilisateurs.AddOrUpdate( new Models.Utilisateur { Login = "Admin", Email = "admin@gmail.com", Prenom = "", Nom = "Admin", Password = "Admin",Role= Crud.Models.Role.Admin },
-                    new Models.Utilisateur { Login = "RH", Email = "RH@gmail.com", Prenom = "", Nom = "RH", Password = "RH", Role = Crud.Models.Role.RH },
-                    new Models.Utilisateur { Login = "Manager", Email = "Manager@gmail.com", Prenom = "", Nom = "Manager", Password = "Manager", Role = Crud.Models.Role.Manager },
-                    new Models.Utilisateur { Login = "User", Email = "User@gmail.com", Prenom = "", Nom = "User", Password = "User", Role = Crud.Models.Role.User }
+                context.Utilisateurs.AddOrUpdate( new Models.Utilisateur { Email = "admin@gmail.com", Prenom = "", Nom = "Admin", Password = "Admin",Role= Crud.Models.Role.Admin },
+                    new Models.Utilisateur {  Email = "RH@gmail.com", Prenom = "", Nom = "RH", Password = "RH", Role = Crud.Models.Role.RH },
+                    new Models.Utilisateur { Email = "Manager@gmail.com", Prenom = "", Nom = "Manager", Password = "Manager", Role = Crud.Models.Role.Manager },
+                    new Models.Utilisateur {  Email = "User@gmail.com", Prenom = "", Nom = "User", Password = "User", Role = Crud.Models.Role.User }
 
 
                 );

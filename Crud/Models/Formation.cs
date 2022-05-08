@@ -17,7 +17,7 @@ namespace Crud.Models
         [Key]
         public int Id { get; set; }
         public string Nom { get; set; }
-        public Type_F Type_F{ get; set; }
+        public Type_Formation Type_Formation { get; set; }
         public DateTime DateDebut { get; set;}
         public DateTime DateFin { get; set; }
         [MaxLength]

@@ -159,6 +159,14 @@
     <Compile Include="Migrations\202205052344471_add Ticket.designer.cs">
       <DependentUpon>202205052344471_add Ticket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205081905516_remouve Login.cs" />
+    <Compile Include="Migrations\202205081905516_remouve Login.designer.cs">
+      <DependentUpon>202205081905516_remouve Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205081926209_Formation Type.cs" />
+    <Compile Include="Migrations\202205081926209_Formation Type.designer.cs">
+      <DependentUpon>202205081926209_Formation Type.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -2411,7 +2419,6 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Admin\ListeUtilisateurs.cshtml" />
-    <Content Include="Views\Admin\RechercheUtilisateurs.cshtml" />
     <Content Include="Views\Admin\ListedesCV.cshtml" />
     <Content Include="Views\Admin\ListeFormations.cshtml" />
     <Content Include="Views\Admin\ListeTICKETS.cshtml" />
@@ -2464,6 +2471,12 @@
     <EmbeddedResource Include="Migrations\202205052344471_add Ticket.resx">
       <DependentUpon>202205052344471_add Ticket.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081905516_remouve Login.resx">
+      <DependentUpon>202205081905516_remouve Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205081926209_Formation Type.resx">
+      <DependentUpon>202205081926209_Formation Type.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2508,4 +2521,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
 </Project>
