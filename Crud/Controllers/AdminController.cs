@@ -52,6 +52,29 @@ namespace Crud.Controllers
             return View();
         }
         [HttpPost]
+        public JsonResult DeleteUtilisateur(String CodeUtilisateur)
+        {
+            var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
+            db.Utilisateurs.Remove(Utilisateur);
+            db.SaveChanges();
+            Task.Run(() => SendMail(Utilisateur.Email, "Compte -Challenge", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Votre compte a été Supprimer par l'administrateur.{Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Challenge"));
+            return Json("Sucess", JsonRequestBehavior.AllowGet);
+        }
+       [HttpPost]
+        public JsonResult ModifierUtilisateur(Utilisateur Utilisateur)
+        {
+            var UtilisateurDB = db.Utilisateurs.Find(Utilisateur.Id);
+
+            UtilisateurDB.Nom = Utilisateur.Nom;
+            UtilisateurDB.Prenom = Utilisateur.Prenom;
+            // etc
+
+            db.SaveChanges();            
+
+            Task.Run(() => SendMail(Utilisateur.Email, "Nouveau compte Utilisateur -Challenge", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Votre compte a été Modifier par l'administrateur.{Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Challenge"));
+            return Json("Sucess", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public JsonResult SaveUtilisateur(Utilisateur Utilisateur)
         {
             Utilisateur.Password = CreateRandomPassword(12);
@@ -60,7 +83,7 @@ namespace Crud.Controllers
             db.SaveChanges();
             // create Password  and send email
 
-            Task.Run(() => SendMail(Utilisateur.Email, "Nouveau compte Utilisateur - Cloud", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Votre compte courier sur la plateforme Cloud a été crée par l'administrateur.{Environment.NewLine}Nom d'utilisateur: {Utilisateur.Email}{Environment.NewLine}Mot de passe: {Utilisateur.Password}{Environment.NewLine}URL:  {Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Cloud Management"));
+            Task.Run(() => SendMail(Utilisateur.Email, "Nouveau compte Utilisateur -Challenge", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Votre compte a été crée par l'administrateur.{Environment.NewLine}Nom d'utilisateur: {Utilisateur.Email}{Environment.NewLine}Mot de passe: {Utilisateur.Password}{Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Challenge"));
             return Json("Sucess", JsonRequestBehavior.AllowGet);
         }
         private static string CreateRandomPassword(int passwordLength)

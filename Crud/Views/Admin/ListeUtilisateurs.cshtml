@@ -49,7 +49,7 @@
                 <a class="btn btn-app edit" style="height: 60px;" id="ModifierUtilisateur">
                     <i class="fas fa-edit"></i> Modifier
                 </a>
-                <a class="btn btn-app delete" style="height: 60px;" id="SupprimerClient">
+                <a class="btn btn-app delete" style="height: 60px;" id="SupprimerUtilisateur">
                     <i class="fas fa-trash"></i> Supprimer
                 </a>
             </div>
@@ -83,7 +83,7 @@
 
                                 @foreach (var Utilisateur in Model)
                                 {
-                                <tr>
+                                <tr id="@Utilisateur.Id">
                                     <td></td>
                                     <th>@Utilisateur.Matricule</th>
                                     <th>@Utilisateur.Email</th>
@@ -275,7 +275,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="ModelModifierClientbtnsave">Enregistrer</button>
+                <button type="button" class="btn btn-primary" id="ModelModifierUtilisateurbtnsave">Enregistrer</button>
             </div>
         </div>
     </div>
@@ -332,36 +332,28 @@
         $('#ModalAjouterUtilisateur').modal('show');
           
     });
-    $('#ModelModifierClientbtnsave').click(function () {
-        var Client = {};
-        Client.Code = $('#ModalModifierClientCode').val();
+    $('#ModelModifierUtilisateurbtnsave').click(function () {
 
-        Client.Intitule = $('#ModalModifierClientintitule').val();
-
-        Client.Ville = $('#ModalModifierClientVille').val();
-        Client.Gouvernorat = $('#ModalModifierClientGouvernorat').val();
-
-        var Zone = {};
-        Zone.Code = $('#ModelModifierClientZone').val();
-        Client.Zone = Zone;
-
-
-        var Circuit = {};
-        Circuit.Code = $('#ModelModifierClientCircuit').val();
-        Client.Circuit = Zone;
-
-        var Representant = {};
-        Representant.Code = $('#ModelModifierClientRepresentant').val();
-        Client.Representant = Zone;
-
-        console.log("Client", Client);
-
+     
+        var Utilisateur = {};
+        Utilisateur.Id = selectedRows[0]["DT_RowId"];
+        Utilisateur.Nom = $('#ModalModifierUtilisateurNom').val();
+        Utilisateur.Prenom = $('#ModalModifierUtilisateurPrenom').val();
+        Utilisateur.Email = $('#ModalModifierUtilisateurEmail').val();
+        Utilisateur.Matricule = $('#ModalModifierUtilisateurMatricule').val();
+        Utilisateur.Num_Tel = $('#ModalModifierUtilisateurTelephone').val();
+        Utilisateur.Role = $('#ModalModifierUtilisateurRole').val();
+        Utilisateur.Poste = $('#ModalModifierUtilisateurPoste').val();
+        Utilisateur.Direction = $('#ModalModifierUtilisateurDirection').val();
+        Utilisateur.Etablissement = $('#ModalModifierUtilisateurEtablissement').val();
+        Utilisateur.Manager = $('#ModalModifierUtilisateurCodeManager').val();
+        Utilisateur.Date_Recrutement = $('#ModalModifierUtilisateurDate_Recrutement').val();
             $.ajax({
                      dataType: "json",
                       async: false,
                     type: "Post",
-                    url: "@Url.Action("ModifierClient", "Admin")",
-                    data: { Client},
+                    url: "@Url.Action("ModifierUtilisateur", "Admin")",
+                data: { Utilisateur},
                 success: function (data) {
                     console.log("data", data);
                     if (data == "Sucess") {
@@ -396,8 +388,18 @@
     $('#ModalModifierUtilisateurPrenom').val(selectedRows[0][3]);
     $('#ModalModifierUtilisateurEmail').val(selectedRows[0][2]);   
     $('#ModalModifierUtilisateurMatricule').val(selectedRows[0][1]);
-    $('#ModalModifierUtilisateurTelephone').val(selectedRows[0][6]);
-    $('#ModalModifierUtilisateurRole').val(selectedRows[0][6]);
+        $('#ModalModifierUtilisateurTelephone').val(selectedRows[0][5]);
+        var Role = selectedRows[0][6];
+        if (Role == 'RH') {
+            $('#ModalModifierUtilisateurRole').val("3");
+        } else if (Role == 'Manager') {
+            $('#ModalModifierUtilisateurRole').val("2");
+        } else if (Role == 'User')
+        {
+            $('#ModalModifierUtilisateurRole').val("0");
+        }
+        
+
     $('#ModalModifierUtilisateurPoste').val(selectedRows[0][7]);
     $('#ModalModifierUtilisateurDirection').val(selectedRows[0][8]);
     $('#ModalModifierUtilisateurEtablissement').val(selectedRows[0][9]);
@@ -405,19 +407,19 @@
 
         $('#ModalModifierUtilisateur').modal('show');
     });
-    $('#SupprimerClient').click(function () {
+    $('#SupprimerUtilisateur').click(function () {
         var count = table.rows({ selected: true }).count();
         if (count == 0) {
-            toastr.error('Aucun client sélectionné .');
+            toastr.error('Aucun Utilisateur sélectionné .');
             return;
         }
-        var CodeClient = selectedRows[0][1];
+        var CodeUtilisateur = selectedRows[0]["DT_RowId"];
 
          $.ajax({
                     dataType: "json",
                     type: "Post",
-                    url: "@Url.Action("DeleteClient", "Admin")",
-                    data: { CodeClient },
+                    url: "@Url.Action("DeleteUtilisateur", "Admin")",
+             data: { CodeUtilisateur },
                    success: function (data) {
                   if (data == "Sucess") {
 
