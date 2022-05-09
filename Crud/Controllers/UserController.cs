@@ -27,6 +27,8 @@ namespace Crud.Controllers
         }
         public ActionResult demandeFormations()
         {
+            Utilisateur utilisateur = Session["CurrentUser"] as Utilisateur;
+            ViewBag.Matricule = utilisateur.Matricule;
             return View();
         }
         public ActionResult Entretienencours()

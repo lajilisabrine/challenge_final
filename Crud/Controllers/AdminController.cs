@@ -52,7 +52,7 @@ namespace Crud.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult DeleteUtilisateur(String CodeUtilisateur)
+        public JsonResult DeleteUtilisateur(int CodeUtilisateur)
         {
             var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
             db.Utilisateurs.Remove(Utilisateur);
@@ -162,11 +162,11 @@ namespace Crud.Controllers
             return View(ListeEntretiens);
         }
         
-                public ActionResult proposeFormations()
+       public ActionResult proposeFormations()
         {
            
 
-            return View();
+            return View(db.Type_Formations.ToList());
         }
     }
 }

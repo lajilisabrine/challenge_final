@@ -167,6 +167,10 @@
     <Compile Include="Migrations\202205081926209_Formation Type.designer.cs">
       <DependentUpon>202205081926209_Formation Type.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205092327348_add Utilisateur.cs" />
+    <Compile Include="Migrations\202205092327348_add Utilisateur.designer.cs">
+      <DependentUpon>202205092327348_add Utilisateur.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -2478,6 +2482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205081926209_Formation Type.resx">
       <DependentUpon>202205081926209_Formation Type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205092327348_add Utilisateur.resx">
+      <DependentUpon>202205092327348_add Utilisateur.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

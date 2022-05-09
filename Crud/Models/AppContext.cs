@@ -18,6 +18,8 @@ namespace Crud.Models
         public DbSet<CvFile> CvFiles { get; set; }
         public DbSet<Entretein> Entreteins { get; set; }
         public DbSet<Formation> Formations { get; set; }
+        public DbSet<Type_Formation> Type_Formations { get; set; }
+
         public DbSet<Objectif> Objectifs { get; set; }
        
     }
