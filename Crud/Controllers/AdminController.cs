@@ -27,9 +27,11 @@ namespace Crud.Controllers
         {
             ViewBag.NbUtilisatue = db.Utilisateurs.Where(x => x.Role != Models.Role.Admin).ToList().Count();
             ViewBag.NBFormation = db.Formations.ToList().Count();
+            ViewBag.NBEntretien = db.Entreteins.ToList().Count();
+            ViewBag.NBTicket = db.Tickets.ToList().Count();
             // view bag 
             // viw data
-            
+
 
             return View();
         }
@@ -48,24 +50,36 @@ namespace Crud.Controllers
     
         public ActionResult ListedesCV()
         {
-            return View();
+            var ListedesCV = db.CvFiles.ToList();
+            return View(ListedesCV);
+           
         }
         
              public ActionResult ListeFormations()
         {
-            return View();
-        }
-        
-    
+            var ListeFormations = db.Formations.ToList();
+            return View(ListeFormations);
 
+           
+        }
         
            public ActionResult ListeTICKETS()
         {
-            return View();
+            var ListeTickets = db.Tickets.ToList();
+            return View(ListeTickets);
+
+        }
+
+        public ActionResult ListeEntretiens()
+        {
+            var ListeEntretiens = db.Entreteins.ToList();
+            return View(ListeEntretiens);
         }
         
-            public ActionResult ListeEntretiens()
+                public ActionResult proposeFormations()
         {
+           
+
             return View();
         }
     }

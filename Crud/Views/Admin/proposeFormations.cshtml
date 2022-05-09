@@ -1,8 +1,10 @@
-﻿
+﻿@model List<Crud.Models.Type_Formation>
 @{
-    ViewBag.Title = "ListeTICKETS";
+    ViewBag.Title = "proposeFormations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 
 
 
@@ -18,7 +20,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="@Url.Action("Index","Admin")">Accueil</a></li>
-                    <li class="breadcrumb-item active">Liste Tickets</li>
+                    <li class="breadcrumb-item active">proposer formation</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,7 +33,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Liste  Ticket</h3>
+            <h3 class="card-title">proposer formation</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -43,10 +45,12 @@
         <!-- /.card-header -->
         <div class="card-body">
             <div class="col-sm-12 col-md-12" style=" text-align: right;">
-                <a class="btn btn-app" style="height: 60px;" id="Traiterdemande">
-                    <i class="fas fa-plus"></i> Traiter
+                @*<a class="btn btn-app" style="height: 60px;" id="AjouterClient">
+                        <i class="fas fa-plus"></i> Ajouter
+                    </a>*@
+                <a class="btn btn-app edit" style="height: 60px;" id="AjouterFormation">
+                    <i class="fas fa-plus"></i> Ajouter
                 </a>
-               
                 <a class="btn btn-app delete" style="height: 60px;" id="SupprimerClient">
                     <i class="fas fa-trash"></i> Supprimer
                 </a>
@@ -60,18 +64,26 @@
                             <thead>
                                 <tr role="row">
                                     <th style="visibility: hidden"></th>
-                                    <th>Matricule</th>
-                                    <th>Nom et prenom</th>
-                                    <th>Objet</th>
-                                    <th>Date Creation</th>
-                                    <th>Type</th>
-                                    <th>Message</th>
-                                   
+
+                                    <th>type Formation</th>
                                     
+
                                 </tr>
 
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @foreach (var Formation in Model)
+                                {
+                                    <tr>
+                                        <td></td>
+                                        <th>@Formation.Libelle</th>
+                                      
+                                    </tr>
+
+
+                                }
+
+                            </tbody>
 
                         </table>
                     </div>
@@ -85,28 +97,66 @@
     <!-- /.card -->
 
 </section>
-
-
-<!-- Modal Ajouter Client -->
-<div class="modal fade" id="ModalAjouterClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalAjouterFormation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter Client</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter Utilisateur</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-3"><label>Code</label></div>
-                    <div class="col-9"><input type="text" class="form-control" id="ModalAjouterClientCode" readonly /></div>
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Nom</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationNom" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Prenom</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationPrenom" /></div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-3"><label>Intitulè</label></div>
-                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitulè" id="ModalAjouterClientintitule" /></div>
-
+                    <div class="col-6">
+                        <div class="col-3"><label>Email</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationEmail" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Password</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationPassword" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Matricule</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationrMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Telephone</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Role</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Poste</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterUtilisateurTelephone" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-3"><label>Direction</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationMatricule" /></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="col-3"><label>Etablissement</label></div>
+                        <div class="col-9"><input type="text" class="form-control" id="ModalAjouterFormationTelephone" /></div>
+                    </div>
                 </div>
 
             </div>
@@ -119,7 +169,7 @@
 </div>
 <!-- Modal Ajouter Client -->
 <!-- Modal Modifier Client -->
-<div class="modal fade" id="ModalTraiterdemande" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalModifierClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -132,7 +182,7 @@
                 <div class="row">
                     <div class="col-3"><label>Code</label></div>
                     <div class="col-9">
-                        <input type="text" class="form-control" id="ModalTraiterdemandeCode" readonly />
+                        <input type="text" class="form-control" id="ModalModifierClientCode" readonly />
 
 
                     </div>
@@ -141,14 +191,14 @@
                 </div>
                 <div class="row">
                     <div class="col-3"><label>Intitule</label></div>
-                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitule" id="ModalTraiterdemandeintitule" /></div>
+                    <div class="col-9"><input type="text" class="form-control" placeholder="Intitule" id="ModalModifierClientintitule" /></div>
 
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" id="ModelTraiterdemandebtnsave">Enregistrer</button>
+                <button type="button" class="btn btn-primary" id="ModelModifierClientbtnsave">Enregistrer</button>
             </div>
         </div>
     </div>
@@ -213,26 +263,26 @@
                     }
             });
     });
-    $('#ModelTraiterdemandebtnsave').click(function () {
+    $('#ModelModifierClientbtnsave').click(function () {
         var Client = {};
-        Client.Code = $('#ModalTraiterdemandeCode').val();
+        Client.Code = $('#ModalModifierClientCode').val();
 
-        Client.Intitule = $('#ModalTraiterdemandeintitule').val();
+        Client.Intitule = $('#ModalModifierClientintitule').val();
 
-        Client.Ville = $('#ModalTraiterdemandeVille').val();
-        Client.Gouvernorat = $('#ModalTraiterdemandeGouvernorat').val();
+        Client.Ville = $('#ModalModifierClientVille').val();
+        Client.Gouvernorat = $('#ModalModifierClientGouvernorat').val();
 
         var Zone = {};
-        Zone.Code = $('#ModelTraiterdemandeZone').val();
+        Zone.Code = $('#ModelModifierClientZone').val();
         Client.Zone = Zone;
 
 
         var Circuit = {};
-        Circuit.Code = $('#ModelTraiterdemandeCircuit').val();
+        Circuit.Code = $('#ModelModifierClientCircuit').val();
         Client.Circuit = Zone;
 
         var Representant = {};
-        Representant.Code = $('#ModelTraiterdemandeRepresentant').val();
+        Representant.Code = $('#ModelModifierClientRepresentant').val();
         Client.Representant = Zone;
 
         console.log("Client", Client);
@@ -241,7 +291,7 @@
                      dataType: "json",
                       async: false,
                     type: "Post",
-                    url: "@Url.Action("Traiterdemande", "Admin")",
+                    url: "@Url.Action("ModifierClient", "Admin")",
                     data: { Client},
                 success: function (data) {
                     console.log("data", data);
@@ -265,7 +315,7 @@
             });
 
     })
-    $('#Traiterdemande').click(function () {
+    $('#ModifierClient').click(function () {
         var count = table.rows({ selected: true }).count();
         if (count == 0) {
             toastr.error('Aucun client sélectionné .');
@@ -282,9 +332,9 @@
                      data: { IntituleZone, IntituleRepresentant, IntituleCircuit },
                    success: function (data) {
                        console.log("data", data);
-                       $('#ModelTraiterdemandeZone').val(data.CodeZone);
-                       $('#ModelTraiterdemandeCircuit').val(data.CodeCircuit);
-                       $('#ModelTraiterdemandeRepresentant').val(data.CodeRepresentant);
+                       $('#ModelModifierClientZone').val(data.CodeZone);
+                       $('#ModelModifierClientCircuit').val(data.CodeCircuit);
+                       $('#ModelModifierClientRepresentant').val(data.CodeRepresentant);
                   }
 
             });
@@ -304,7 +354,7 @@
 
 
 
-        $('#ModalTraiterdemande').modal('show');
+        $('#ModalModifierClient').modal('show');
         //  $('#ModalModifierClient').modal('hide');
 
 

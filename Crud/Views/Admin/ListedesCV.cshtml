@@ -1,4 +1,7 @@
 ﻿
+
+@model List<Crud.Models.CvFile>
+
 @{
     ViewBag.Title = "ListedesCV";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -42,15 +45,13 @@
         <!-- /.card-header -->
         <div class="card-body">
             <div class="col-sm-12 col-md-12" style=" text-align: right;">
-                <a class="btn btn-app" style="height: 60px;" id="AjouterCV">
-                    <i class="fas fa-plus"></i> Ajouter
+                <a class="btn btn-app" style="height: 60px;" id="telechargerCV">
+                    <i class="fas fa-upload"></i> telecharger
                 </a>
-                <a class="btn btn-app edit" style="height: 60px;" id="ModifierCV">
-                    <i class="fas fa-edit"></i> Modifier
-                </a>
-                <a class="btn btn-app delete" style="height: 60px;" id="SupprimerCV">
-                    <i class="fas fa-trash"></i> Supprimer
-                </a>
+                @*@*<a class="btn btn-app edit" style="height: 60px;" id="ModifierCV">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>*@
+
             </div>
 
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -69,11 +70,28 @@
                                     <th>date Mise A JOUR</th>
                                     <th>Status</th>
                                     <th>URL</th>
-                                    
+
                                 </tr>
 
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @foreach (var CvFile in Model)
+                                {
+                                    <tr>
+                                        <td></td>
+
+                                        @*<th>@CvFile.matricule</th>
+                                        <th>@CvFile.fullname</th>*@
+                                        <th>@CvFile.Name</th>
+                                        <th>@CvFile.Size</th>
+                                        <th>@CvFile.Status</th>
+                                        <th>@CvFile.Url</th>
+                                     
+                                    </tr>
+
+
+                                }
+                            </tbody>
 
                         </table>
                     </div>
