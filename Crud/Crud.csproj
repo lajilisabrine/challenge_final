@@ -183,6 +183,10 @@
     <Compile Include="Migrations\202205150154480_ pondurationssssss.designer.cs">
       <DependentUpon>202205150154480_ pondurationssssss.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205150202365_ pondurationssssssdc.cs" />
+    <Compile Include="Migrations\202205150202365_ pondurationssssssdc.designer.cs">
+      <DependentUpon>202205150202365_ pondurationssssssdc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -2514,6 +2518,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205150154480_ pondurationssssss.resx">
       <DependentUpon>202205150154480_ pondurationssssss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205150202365_ pondurationssssssdc.resx">
+      <DependentUpon>202205150202365_ pondurationssssssdc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

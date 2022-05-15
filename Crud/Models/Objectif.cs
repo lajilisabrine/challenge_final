@@ -14,7 +14,7 @@ namespace Crud.Models
        
         public string Titre_Obj { get; set; }
         [Required]
-        public int Ponderation { get; }
+        public int Ponderation { get; set; }
         [Required]
         public string KPI { get; set; }
         public string Ressultat  { get; set; }
