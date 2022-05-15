@@ -171,6 +171,18 @@
     <Compile Include="Migrations\202205092327348_add Utilisateur.designer.cs">
       <DependentUpon>202205092327348_add Utilisateur.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205150104503_Objectifs .cs" />
+    <Compile Include="Migrations\202205150104503_Objectifs .designer.cs">
+      <DependentUpon>202205150104503_Objectifs .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205150111479_Objectifs sd.cs" />
+    <Compile Include="Migrations\202205150111479_Objectifs sd.designer.cs">
+      <DependentUpon>202205150111479_Objectifs sd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205150154480_ pondurationssssss.cs" />
+    <Compile Include="Migrations\202205150154480_ pondurationssssss.designer.cs">
+      <DependentUpon>202205150154480_ pondurationssssss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -193,6 +205,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bs-stepper\css\bs-stepper.css" />
+    <Content Include="Content\bs-stepper\css\bs-stepper.min.css" />
+    <Content Include="Content\bs-stepper\js\bs-stepper.js" />
+    <Content Include="Content\bs-stepper\js\bs-stepper.min.js" />
     <Content Include="Content\Home.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2371,6 +2387,10 @@
     <Content Include="frontend\plugins\summernote\summernote.js.map" />
     <Content Include="frontend\plugins\summernote\summernote.min.js.map" />
     <Content Include="frontend\plugins\toastr\toastr.js.map" />
+    <Content Include="Content\bs-stepper\css\bs-stepper.css.map" />
+    <Content Include="Content\bs-stepper\css\bs-stepper.min.css.map" />
+    <Content Include="Content\bs-stepper\js\bs-stepper.js.map" />
+    <Content Include="Content\bs-stepper\js\bs-stepper.min.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -2485,6 +2505,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205092327348_add Utilisateur.resx">
       <DependentUpon>202205092327348_add Utilisateur.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205150104503_Objectifs .resx">
+      <DependentUpon>202205150104503_Objectifs .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205150111479_Objectifs sd.resx">
+      <DependentUpon>202205150111479_Objectifs sd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205150154480_ pondurationssssss.resx">
+      <DependentUpon>202205150154480_ pondurationssssss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

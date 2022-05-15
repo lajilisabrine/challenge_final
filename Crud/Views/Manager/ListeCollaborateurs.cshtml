@@ -1,11 +1,71 @@
-﻿
+﻿@model List<Crud.Models.Utilisateur>
 @{
     ViewBag.Title = "ListeCollaborateurs";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" rel="stylesheet" media="all">
+
+<style>
+
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        height: 38px;
+    }
 
 
+    .split {
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    .gutter {
+        background-color: #eee;
+        background-repeat: no-repeat;
+        background-position: 50%;
+    }
+
+        .gutter.gutter-horizontal {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+            cursor: col-resize;
+        }
+
+    .scroller {
+        overflow-y: scroll;
+        overflow-x: scroll;
+        scrollbar-color: rebeccapurple green;
+        scrollbar-width: thin;
+    }
+
+    thead input {
+        width: 100%;
+    }
+
+
+
+    .stikyMenu {
+        width: 40px;
+        padding: 0px;
+        margin: 0px;
+        height: 200px;
+        position: fixed;
+        right: 0;
+        top: 205px;
+    }
+</style>
+<link rel="stylesheet" href="~/Content/bs-stepper/css/bs-stepper.min.css">
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.0/css/fixedHeader.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.css" rel="stylesheet" media="all">
+<!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -14,8 +74,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Manager")">Accueil</a></li>
-                    <li class="breadcrumb-item active">Liste Collaborateur</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("index","Admin")">Accueil</a></li>
+                    <li class="breadcrumb-item active">Fixation des objectifs</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,48 +83,536 @@
 </div>
 <!-- /.content-header -->
 <!-- Main content -->
-<!-- Main content -->
 <section class="content">
-
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Liste  Collaborateurs</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-            </div>
-            <!-- /.card-tools -->
-        </div>
-        <div class="card-body">
-
-            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <div class="col-3"><label>matricule</label></div>
-                <div class="row">
-                    <div class="col-sm-14">
-                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
-                            <thead>
-                                <tr role="row">
-                                    <th style="visibility: hidden"></th>
-                                    @*<th>Matricule</th>*@
-                                    <th>Objectif</th>
-                                    <th>Ponderation</th>
-                                    <th>KPI</th>
-                                    <th>Commentaire</th>
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </thead>
-                            <tbody></tbody>
-
-                        </table>
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"> Fixation des objectifs </h3>
                     </div>
+                    <div class="card-body p-0">
+                        <div class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                                <!-- your steps here -->
+                                <div class="step" data-target="#logins-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">Ajouter Collaborateur </span>
+                                    </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#information-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">Ajouter Objectifs</span>
+                                    </button>
+                                </div>
 
+
+                            </div>
+                            <div class="bs-stepper-content">
+                                <!-- your steps content here -->
+                                <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-sm-14">
+                                                <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th style="visibility: hidden"></th>
+                                                            <th>Matricule</th>
+                                                            <th>Email</th>
+                                                            <th>Prenom</th>
+                                                            <th>Nom</th>
+
+                                                            <th>Poste</th>
+                                                            <th>Direction</th>
+                                                            <th>Etablissement</th>
+
+                                                            <th>Date de recrutement</th>
+
+
+
+                                                        </tr>
+
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (var Utilisateur in Model)
+                                                        {
+                                                            <tr id="@Utilisateur.Id">
+                                                                <td></td>
+                                                                <th>@Utilisateur.Matricule</th>
+                                                                <th>@Utilisateur.Email</th>
+                                                                <th>@Utilisateur.Prenom</th>
+                                                                <th>@Utilisateur.Nom</th>
+                                                                <th>@Utilisateur.Poste</th>
+                                                                <th>@Utilisateur.Direction</th>
+                                                                <th>@Utilisateur.Etablissement</th>
+                                                                <th>@Utilisateur.Date_Recrutement</th>
+
+
+                                                            </tr>
+
+
+                                                        }
+
+
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <button class="btn btn-primary mt-3" id="Next" >Next</button>
+                                </div>
+                                <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                                    <div class="row">
+
+                                        <div class="form-group  col-md-6">
+                                            <label for="AnneeOuverture">Annee :</label>
+                                            <input type="month" class="form-control" id="Annee" placeholder=" Enter Annee Ouverture">
+                                        </div>
+                                        <div class="col-md-12 mt--30 mb--20">
+                                            <button type="button" id="AddLigne" style="float: right; padding: 10px ">
+                                                <span>Ajouter Objectifs </span><i class="fa fa-plus-circle"></i>
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row row mt-3">
+                                        <div class="col-12">
+                                            <div class="cart-table table-responsive">
+                                                <div id="tablListeMagasins_wrapper" class="dataTables_wrapper">
+                                                    <table class="table" id="tableObjectif">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="font-size: 12px; ">Objectif</th>
+                                                                <th  style="font-size: 12px;">Ponderation</th>
+                                                                <th  style="font-size: 12px; ">KPI</th>
+                                                                <th  style="font-size: 12px;">Commentaire</th>
+                                                                <th  style="font-size: 12px;">Action</th>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                 
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                                    <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                      
+                    </div>
                 </div>
+                <!-- /.card -->
             </div>
-
         </div>
-        </div>
+        <!-- /.row -->
+    </div>
 </section>
+
+
+
+
+<!-- BS-Stepper -->
+<script src="~/Content/bs-stepper/js/bs-stepper.min.js"></script>
+
+<!-- Sweet Alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- Page specific script -->
+<script>
+
+
+
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+
+
+    $("#Next").on("click", function () {
+        var count = table.rows({ selected: true }).count();
+        if (count == 0) {
+            toastr.error('Aucun Utilisateur sélectionné .');
+            return;
+        }
+      
+        stepper.next()
+
+    })
+
+    let selectedRows;
+    var table;
+    $(document).ready(function () {
+
+        $('#tableclient thead tr')
+            .clone(true)
+            .addClass('filters')
+            .appendTo('#tableclient thead');
+
+
+        table = $('#tableclient').DataTable({
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }], dom: 'lrt',
+            select: {
+                style: 'os',
+                selector: 'td:first-child'
+            },
+            order: [[1, 'asc']],
+            orderCellsTop: true,
+            fixedHeader: true,
+            initComplete: function () {
+                var api = this.api();
+
+                // For each column
+                api
+                    .columns()
+                    .eq(0)
+                    .each(function (colIdx) {
+                        if (colIdx != 0) {
+                            console.log("colIdx", colIdx);
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            var title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $(
+                                'input',
+                                $('.filters th').eq($(api.column(colIdx).header()).index())
+                            )
+                                .off('keyup change')
+                                .on('keyup change', function (e) {
+                                    e.stopPropagation();
+
+                                    // Get the search value
+                                    $(this).attr('title', $(this).val());
+                                    var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                    var cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != ''
+                                                ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                : '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        }
+                    });
+            },
+
+
+
+        });
+        table.on('select deselect', function () {
+            selectedRows = table.rows({ selected: true }).data();
+            var Jsondata = JSON.stringify(table.row({ selected: true }).data());
+
+            if (Jsondata !== undefined) {
+                console.log("selectedRows", selectedRows[0]);
+                toastr.success('Vous avez sélectionné Utilisateur :' + selectedRows[0][2] + ' code :' + selectedRows[0][1]);
+                $('#Code').val(selectedRows[0][1]);
+
+
+
+            } else {
+              
+
+
+            }
+
+
+        });
+    });
+    $("#AddLigne").on('click', function () {
+
+        // Raisonsocial
+        var newRow = document.createElement('tr');
+
+        var TDObjectif = document.createElement('td');
+        $(TDObjectif).prop('name', 'Objectif');
+        $(TDObjectif).attr("contenteditable", true);
+        $(TDObjectif).append("");
+        newRow.appendChild(TDObjectif);
+
+        var TDPonderation = document.createElement('td');
+        $(TDPonderation).prop('name', 'Ponderation');
+        $(TDPonderation).attr("contenteditable", true);
+        $(TDPonderation).append("");
+        newRow.appendChild(TDPonderation);
+
+        //  KPI
+        var TDKPI = document.createElement('td');
+        $(TDKPI).prop('name', 'KPI');
+        $(TDKPI).attr("contenteditable", true);
+        $(TDKPI).append("");
+        newRow.appendChild(TDKPI);
+
+
+        // Nom
+        var TDCommentaire = document.createElement('td');
+        $(TDCommentaire).prop('name', 'Commentaire');
+        $(TDCommentaire).attr("contenteditable", true);
+        $(TDCommentaire).append("");
+        newRow.appendChild(TDCommentaire);
+
+        // Prenom
+        
+
+
+      
+
+
+        // Action
+        var TDAction = document.createElement('td');
+        $(TDAction).append('<i title="Valider" class="far fa-thumbs-up Valider"></i> <i class="fas fa-trash Supprimer" title="Supprimer"></i>');
+        newRow.appendChild(TDAction);
+
+        $('#tableObjectif').append(newRow);
+ 
+        console.log("Add Row");
+
+    });
+
+    $('#tableObjectif').on('click', 'td .Supprimer', function () {
+
+        var tr = $(this).closest('tr').remove();
+       
+       
+    });
+    $('#tableObjectif').on('click', 'td .Valider', function () {
+       // var Objectif = $(this).closest('tr').find("td:eq(0) input[name='Addition']").val();
+        var tr = $(this).closest('tr');
+        var Objectif = $(this).closest('tr').find("td:eq(0)").html();
+        var Ponderation = $(this).closest('tr').find("td:eq(1)").html();
+        var KPI = $(this).closest('tr').find("td:eq(2)").html();
+        var Commentaire = $(this).closest('tr').find("td:eq(3)").html();
+        console.log(" Objectif :", Objectif, "Ponderation", Ponderation, "KPI", KPI, "Commentaire" ,Commentaire);
+
+        if (Objectif == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: "La Objectif est vide",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        if (Ponderation == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: "La Ponderation est vide",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        console.log("parseInt Ponderation", parseInt(Ponderation));
+        if (isNaN(parseInt(Ponderation))) {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: "La Ponderation est invalide",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+       ;
+        if (KPI == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: "Le KPI est vide",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        if (Commentaire == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: "Le Commentaire est vide",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        var Objectif = $(this).closest('tr').find("td:eq(0)").attr('contenteditable', 'false');
+        var Ponderation = $(this).closest('tr').find("td:eq(1)").attr('contenteditable', 'false');
+        var KPI = $(this).closest('tr').find("td:eq(2)").attr('contenteditable', 'false');
+        var Commentaire = $(this).closest('tr').find("td:eq(3)").attr('contenteditable', 'false');     
+        $(this).closest('tr').find("td:eq(4) .Supprimer").remove();
+        $(this).closest('tr').find("td:eq(4) .Valider").remove();
+
+
+
+    });
+
+</script>
+<script>
+
+
+
+  $('#sumbitButton').click(function (event) {
+
+           
+      var objectifs = [];
+
+
+  
+     
+      var Annee = parseInt($("#Annee").val().substring(0, 4));
+
+      var tbObjectif = $('#tableObjectif:eq(0) tbody');
+      var Btnvaliderexist = false;
+
+      tbObjectif.find("tr").each(function (index, element) {
+
+                console.log("item", element);
+          var Objectif = {
+              Titre_Obj: $(element).find('td').eq(0).html(),
+              Ponderation: parseInt($(element).find('td').eq(1).html()),
+              KPI: $(element).find('td').eq(2).html(),
+              Commantaire_Manager: $(element).find('td').eq(3).html(),
+              Annee: Annee
+
+                }
+          var Btnvalider = $(this).find('td').eq(4).find('.Valider').length;
+
+          if (Btnvalider != 0) {
+              Btnvaliderexist = true;
+
+          }
+          objectifs.push(Objectif);
+          Objectif = {};
+
+         });
+
+
+      if (Btnvaliderexist) {
+          Swal.fire({
+              showCloseButton: true,
+              title: "Attention!",
+              html: " <div> il existe un elements non encore valide.<br>Merci de vérifier</div> ",
+              icon: "warning",
+              confirmButtonColor: '#3085d6',
+              button: "OK",
+              dangerMode: true
+          });
+          return;
+      }
+
+      var CodeUtilisateur = selectedRows[0]["DT_RowId"];
+
+      console.log("Objectif", objectifs);
+      console.log("IdUtlisateur", selectedRows[0]["DT_RowId"]);
+
+     
+
+            
+
+
+           
+
+
+
+         
+      $.ajax({
+          async: false,
+          type: "post",
+          dataType: "JSON",
+          url: "@Url.Action("SaveObjectif", "Manager")",
+          data: { objectifs, CodeUtilisateur},
+                success: function (response) {
+                    console.log(response);
+                    if (response == "Sucess") {
+                        $('#tableObjectif:eq(0) tbody').empty();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Enregistrement effectué avec succès',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+
+                      //     window.location = "@Url.Action("ListeSocietes", "Admin")";
+                        });
+
+
+                    } else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#0a498c'
+                        })
+                    }
+                },
+                error: function (x, y, z) {
+
+                }
+            });
+        });
+</script>
