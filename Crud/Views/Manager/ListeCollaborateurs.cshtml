@@ -109,7 +109,13 @@
                                         <span class="bs-stepper-label">Ajouter Objectifs</span>
                                     </button>
                                 </div>
-
+                                <div class="line"></div>
+                                <div class="step" data-target="#Evaluation-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                        <span class="bs-stepper-circle">3</span>
+                                        <span class="bs-stepper-label">Evaluation</span>
+                                    </button>
+                                </div>
 
                             </div>
                             <div class="bs-stepper-content">
@@ -130,7 +136,6 @@
                                                             <th>Poste</th>
                                                             <th>Direction</th>
                                                             <th>Etablissement</th>
-
                                                             <th>Date de recrutement</th>
 
 
@@ -151,7 +156,7 @@
                                                                 <th>@Utilisateur.Poste</th>
                                                                 <th>@Utilisateur.Direction</th>
                                                                 <th>@Utilisateur.Etablissement</th>
-                                                                <th>@Utilisateur.Date_Recrutement</th>
+                                                                <th>@Utilisateur.Date_Recrutement.Value.ToString("MM/dd/yyyy")</th>
 
 
                                                             </tr>
@@ -170,7 +175,7 @@
                                     </div>
 
 
-                                    <button class="btn btn-primary mt-3" id="Next" >Next</button>
+                                    <button class="btn btn-primary mt-3" id="Next">Next</button>
                                 </div>
                                 <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                     <div class="row">
@@ -196,17 +201,16 @@
                                                         <thead>
                                                             <tr>
                                                                 <th style="font-size: 12px; ">Objectif</th>
-                                                                <th  style="font-size: 12px;">Ponderation</th>
-                                                                <th  style="font-size: 12px; ">KPI</th>
-                                                                <th  style="font-size: 12px;">Commentaire</th>
-                                                                <th  style="font-size: 12px;">Action</th>
+                                                                <th style="font-size: 12px;">Ponderation</th>
+                                                                <th style="font-size: 12px; ">KPI</th>
+                                                                <th style="font-size: 12px;">Commentaire</th>
+                                                                <th style="font-size: 12px;">Action</th>
 
 
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                 
+                                                        <tbody></tbody>
+
                                                     </table>
                                                 </div>
                                             </div>
@@ -215,17 +219,81 @@
                                         </div>
                                     </div>
 
-
-
-
-
-
                                     <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
                                     <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
-
+                                   
                                 </div>
 
+                                <div id="Evaluation-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                                    <div class="row">
 
+                                        <div class="form-group  col-md-4">
+
+                                            <label for="exampleFormControlTextarea1">Point Fort</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+                                        </div>
+                                        <div class="form-group  col-md-2">
+
+
+                                        </div>
+
+                                        <div class="form-group  col-md-4">
+                                            <label for="exampleFormControlTextarea1">Freins</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="row row mt-3">
+                                        <div class="col-12">
+                                            <div class="cart-table table-responsive">
+                                                <div id="tablListeMagasins_wrapper" class="dataTables_wrapper">
+                                                    <table class="table" id="tableObjectif">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="font-size: 12px; ">Objectif</th>
+                                                                <th style="font-size: 12px;">Ponderation</th>
+                                                                <th style="font-size: 12px; ">KPI</th>
+                                                                <th style="font-size: 12px;">Resultat d'atteinte d'Objectif</th>
+                                                                <th style="font-size: 12px;">Commentaire</th>
+                                                                <th style="font-size: 12px;">Score</th>
+
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 mt--30 mb--20">
+                                        <label for="exampleFormControlTextarea1">Total Score</label>
+                                        <input type="text" id="inputSubject" class="form-control" />
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <div class="form-group">
+                                            <label for="inputSubject">Commentaire Manager</label>
+                                            <input type="text" id="inputSubject" class="form-control" />
+                                        </div>
+                                        <div class="col-md-12 text-center">
+
+                                            <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                                            <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -269,6 +337,12 @@
             return;
         }
       
+        stepper.next()
+
+    })
+    $("#Next1").on("click", function () {
+       
+
         stepper.next()
 
     })
@@ -358,11 +432,18 @@
                 console.log("selectedRows", selectedRows[0]);
                 toastr.success('Vous avez sélectionné Utilisateur :' + selectedRows[0][2] + ' code :' + selectedRows[0][1]);
                 $('#Code').val(selectedRows[0][1]);
+                var CodeUtilisateur = selectedRows[0]["DT_RowId"];
+                $.ajax({
+                    async: false,
+                    type: "post",
+                    dataType: "JSON",
+                    url: "@Url.Action("Passevaluation", "Manager")",
+                    data: { CodeUtilisateur },
+                    success: function (response) {
+                        alert(response);
+                    }
+                     })
 
-
-
-            } else {
-              
 
 
             }
@@ -510,8 +591,7 @@
 
 </script>
 <script>
-
-
+    
 
   $('#sumbitButton').click(function (event) {
 
@@ -567,14 +647,7 @@
       console.log("Objectif", objectifs);
       console.log("IdUtlisateur", selectedRows[0]["DT_RowId"]);
 
-     
-
-            
-
-
-           
-
-
+    
 
          
       $.ajax({

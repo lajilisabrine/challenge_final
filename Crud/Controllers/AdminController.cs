@@ -67,7 +67,14 @@ namespace Crud.Controllers
 
             UtilisateurDB.Nom = Utilisateur.Nom;
             UtilisateurDB.Prenom = Utilisateur.Prenom;
-            // etc
+            UtilisateurDB.Email = Utilisateur.Email;
+            UtilisateurDB.Manager = Utilisateur.Manager;
+            UtilisateurDB.Matricule = Utilisateur.Matricule;
+            UtilisateurDB.Num_Tel = Utilisateur.Num_Tel;
+            UtilisateurDB.Poste = Utilisateur.Poste;
+            UtilisateurDB.Direction = Utilisateur.Direction;
+            UtilisateurDB.Etablissement = Utilisateur.Etablissement;
+           
 
             db.SaveChanges();            
 

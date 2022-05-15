@@ -187,9 +187,14 @@
     <Compile Include="Migrations\202205150202365_ pondurationssssssdc.designer.cs">
       <DependentUpon>202205150202365_ pondurationssssssdc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205151544588_obj.cs" />
+    <Compile Include="Migrations\202205151544588_obj.designer.cs">
+      <DependentUpon>202205151544588_obj.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
+    <Compile Include="Models\Status_Obj.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\CvFile.cs" />
     <Compile Include="Models\Entretein.cs" />
@@ -2521,6 +2526,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205150202365_ pondurationssssssdc.resx">
       <DependentUpon>202205150202365_ pondurationssssssdc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205151544588_obj.resx">
+      <DependentUpon>202205151544588_obj.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

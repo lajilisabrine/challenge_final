@@ -42,6 +42,7 @@ namespace Crud.Controllers
 
             return Json("Sucess", JsonRequestBehavior.AllowGet);
         }
+     
         public ActionResult ListeCollaborateurs()
         {
             var CurrentUser = Session["CurrentUser"] as Utilisateur;
@@ -53,7 +54,26 @@ namespace Crud.Controllers
         {
             return View();
         }
-        
+        public JsonResult Passevaluation(int CodeUtilisateur)
+        {
+            var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
+           var ListObjectifs= Utilisateur.Objectifs;
+            if (ListObjectifs.Count()==0)
+            { return Json("Failed", JsonRequestBehavior.AllowGet); }
+            else if(ListObjectifs != null && ListObjectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve))
+            {
+                { return Json("Failed", JsonRequestBehavior.AllowGet); }
+            }
+            else
+            {
+                return Json("Sucess", JsonRequestBehavior.AllowGet);
+            }
+
+
+
+           
+        }
+
         public ActionResult demandeFormations()
         {
             return View();

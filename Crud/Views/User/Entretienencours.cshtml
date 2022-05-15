@@ -1,4 +1,5 @@
 ﻿
+@model List<Crud.Models.Objectif>
 @{
     ViewBag.Title = "Entretienencours";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -28,44 +29,186 @@
 <section class="content">
 
     <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Entretien en cours</h3>
+        @if (Model.Count > 0)
+        {
+            <div class="card-header">
+                <h3 class="card-title">Entretien en cours</h3>
 
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
             </div>
-            <!-- /.card-tools -->
-        </div>
-        <div class="card-body">
+            <div class="card-body">
 
-            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <div class="col-3"><label>matricule</label></div>
-                <div class="row">
-                    <div class="col-sm-14">
-                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
-                            <thead>
-                                <tr role="row">
-                                    <th style="visibility: hidden"></th>
-                                    @*<th>Matricule</th>*@
-                                    <th>Objectif</th>
-                                    <th>Ponderation</th>
-                                    <th>KPI</th>
-                                    <th>Commentaire</th>
-                                    <th>Action</th>
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
-                                </tr>
+                    <div class="row">
+                        <input type="text" value="@ViewBag.AnnerObj" readonly id="Annee_obj" style="border: none;" />
+                        @*<div class="row row mt-4">*@
+                        <div class="col-12">
+                            <div class="cart-table table-responsive">
+                                <div id="tablListeMagasins_wrapper" class="dataTables_wrapper">
+                                    <table class="table" id="tableObjectif">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 20px; ">Objectif</th>
+                                                <th style="font-size: 20px;">Ponderation</th>
+                                                <th style="font-size: 20px; ">KPI</th>
+                                                <th style="font-size: 20px;">Commentaire</th>
 
-                            </thead>
-                            <tbody></tbody>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var Objectif in Model)
+                                            {
+                                                <tr>
 
-                        </table>
+                                                    <th>@Objectif.Titre_Obj</th>
+                                                    <th>@Objectif.Ponderation</th>
+                                                    <th>@Objectif.KPI</th>
+                                                    <th>@Objectif.Commantaire_Manager</th>
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        @*</div>*@
+
+
+                        @*<thead>
+                        @*<tr role="row">
+                            <th style="visibility: hidden"></th>
+                            @*<th>Matricule</th>*@
+                        @*<th>Objectif</th>
+                        <th>Ponderation</th>
+                        <th>KPI</th>
+                        <th>Commentaire</th>
+                        <th>Action</th>*@
+
+                        @*</tr>
+
+                        </thead>
+                        <tbody></tbody>*@
+
+                        @*</table>*@
                     </div>
 
                 </div>
             </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <label for="inputSubject">Commentaire Collaborateur</label>
+                    <input type="text" id="inputSubject" class="form-control" />
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-primary" id="btnvalide">valider</button>
+                    <button type="button" class="btn btn-secondary" id="btnreserve">Reserve</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card-header">
+                <h3 class="card-title">Entretien en cours</h3>
 
-        </div>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <div class="card-body">
+
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                       
+                        <div class="col-12">
+                         
+                            <div>Aucun Objectif defini</div>
+
+                        </div>
+                     
+                    </div>
+
+                </div>
+            </div>
+         
+        }
     </div>
+
 </section>
+<!-- Sweet Alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('#btnvalide').on("click", function () {
+        var anner = $("#Annee_obj").val();
+        var status = 1;
+        var commentaire = $('#inputSubject').val();
+
+        $.ajax({
+          async: false,
+          type: "post",
+          dataType: "JSON",
+          url: "@Url.Action("SaveObjectifSatut", "User")",
+            data: { status, commentaire,anner},
+                success: function (response) {
+                    console.log(response);
+                    if (response == "Sucess") {
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Enregistrement effectué avec succès',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+
+                               location.reload();
+                        });
+
+                    }
+                }
+        })
+    })
+    $('#btnreserve').on("click", function () {
+
+        var anner = $("#Annee_obj").val();
+        var status = 2;
+        var commentaire = $('#inputSubject').val();
+
+        $.ajax({
+          async: false,
+          type: "post",
+          dataType: "JSON",
+          url: "@Url.Action("SaveObjectifSatut", "User")",
+            data: { status, commentaire,anner},
+                success: function (response) {
+                    console.log(response);
+                    if (response == "Sucess") {
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Enregistrement effectué avec succès',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+
+                            location.reload();
+                        });
+
+                    }
+                }
+        })
+    })
+</script>

@@ -20,7 +20,7 @@ namespace Crud.Models
         public string Ressultat  { get; set; }
         public string Commantaire_Manager { get; set; }
         public string Commantaire_Employee { get; set; }
-      
+        public Status_Obj Status_Obj { get; set; }
         public int Score { get; set; }
         public Entretein Entretein { set; get; }
 
