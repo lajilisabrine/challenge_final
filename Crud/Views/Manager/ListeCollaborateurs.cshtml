@@ -156,7 +156,7 @@
                                                                 <th>@Utilisateur.Poste</th>
                                                                 <th>@Utilisateur.Direction</th>
                                                                 <th>@Utilisateur.Etablissement</th>
-                                                                <th>@Utilisateur.Date_Recrutement.Value.ToString("MM/dd/yyyy")</th>
+                                                                <th>@*@Utilisateur.Date_Recrutement.ToString("MM/dd/yyyy")*@</th>
 
 
                                                             </tr>
@@ -229,8 +229,8 @@
 
                                         <div class="form-group  col-md-4">
 
-                                            <label for="exampleFormControlTextarea1">Point Fort</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <label for="PointForTextarea">Point Fort</label>
+                                            <textarea class="form-control" id="PointForTextarea" rows="3" style=" resize: none;"></textarea>
 
                                         </div>
                                         <div class="form-group  col-md-2">
@@ -239,8 +239,8 @@
                                         </div>
 
                                         <div class="form-group  col-md-4">
-                                            <label for="exampleFormControlTextarea1">Freins</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <label for="FreinsTextarea">Freins</label>
+                                            <textarea class="form-control" id="FreinsTextarea" rows="3"  style=" resize: none;"></textarea>
                                         </div>
 
 
@@ -251,7 +251,7 @@
                                         <div class="col-12">
                                             <div class="cart-table table-responsive">
                                                 <div id="tablListeMagasins_wrapper" class="dataTables_wrapper">
-                                                    <table class="table" id="tableObjectif">
+                                                    <table class="table" id="tableEvaluation">
                                                         <thead>
                                                             <tr>
                                                                 <th style="font-size: 12px; ">Objectif</th>
@@ -286,7 +286,7 @@
                                         </div>
                                         <div class="col-md-12 text-center">
 
-                                            <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                                            @*<button class="btn btn-primary" onclick="stepper.previous()">Previous</button>*@
                                             <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
 
                                         </div>
@@ -322,7 +322,9 @@
 <!-- Page specific script -->
 <script>
 
-
+    let selectedRows;
+    let Pass = false;
+    var table;
 
     // BS-Stepper Init
     document.addEventListener('DOMContentLoaded', function () {
@@ -336,19 +338,26 @@
             toastr.error('Aucun Utilisateur sélectionné .');
             return;
         }
+        console.log("Pass", Pass);
+        if (Pass) {
+            stepper.next();
+            stepper.next();
+        } else {
+            stepper.next();
+        }
       
-        stepper.next()
 
     })
-    $("#Next1").on("click", function () {
+    //$("#Next1").on("click", function () {
        
 
-        stepper.next()
+    //    console.log("Pass",Pass);
+    //    stepper.next().next()
+    //   // stepper.next()
 
-    })
+    //})
 
-    let selectedRows;
-    var table;
+   
     $(document).ready(function () {
 
         $('#tableclient thead tr')
@@ -369,7 +378,7 @@
             },
             order: [[1, 'asc']],
             orderCellsTop: true,
-            fixedHeader: true,
+            fixedHeader: false,          
             initComplete: function () {
                 var api = this.api();
 
@@ -379,7 +388,7 @@
                     .eq(0)
                     .each(function (colIdx) {
                         if (colIdx != 0) {
-                            console.log("colIdx", colIdx);
+                         
                             // Set the header cell to contain the input element
                             var cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -429,7 +438,7 @@
             var Jsondata = JSON.stringify(table.row({ selected: true }).data());
 
             if (Jsondata !== undefined) {
-                console.log("selectedRows", selectedRows[0]);
+              
                 toastr.success('Vous avez sélectionné Utilisateur :' + selectedRows[0][2] + ' code :' + selectedRows[0][1]);
                 $('#Code').val(selectedRows[0][1]);
                 var CodeUtilisateur = selectedRows[0]["DT_RowId"];
@@ -440,7 +449,114 @@
                     url: "@Url.Action("Passevaluation", "Manager")",
                     data: { CodeUtilisateur },
                     success: function (response) {
-                        alert(response);
+                        console.log("response", response);
+                        if (response.Resultat == "Failed") {
+                            console.log("Passevaluation", response.ListObjectifs);
+                            Pass = false;
+                            response.ListObjectifs.forEach(function (item) {
+                                console.log("item", item);
+                                var newRow = document.createElement('tr');
+
+                                var TDObjectif = document.createElement('td');
+                                $(TDObjectif).prop('name', 'Objectif');
+                                $(TDObjectif).attr("contenteditable", true);
+                                $(TDObjectif).append(item.Titre_Obj);
+                                newRow.appendChild(TDObjectif);
+
+                                var TDPonderation = document.createElement('td');
+                                $(TDPonderation).prop('name', 'Ponderation');
+                                $(TDPonderation).attr("contenteditable", true);
+                                $(TDPonderation).append(item.Ponderation);
+                                newRow.appendChild(TDPonderation);
+
+                                //  KPI
+                                var TDKPI = document.createElement('td');
+                                $(TDKPI).prop('name', 'KPI');
+                                $(TDKPI).attr("contenteditable", true);
+                                $(TDKPI).append(item.KPI);
+                                newRow.appendChild(TDKPI);
+
+
+                                // Nom
+                                var TDCommentaire = document.createElement('td');
+                                $(TDCommentaire).prop('name', 'Commentaire');
+                                $(TDCommentaire).attr("contenteditable", true);
+                                $(TDCommentaire).append(item.Commantaire_Manager);
+                                newRow.appendChild(TDCommentaire);
+
+                                // Prenom
+
+
+
+
+
+
+                                // Action
+                                var TDAction = document.createElement('td');
+                                $(TDAction).append('<i title="Valider" class="far fa-thumbs-up Valider"></i> <i class="fas fa-trash Supprimer" title="Supprimer"></i>');
+                                newRow.appendChild(TDAction);
+
+                                $('#tableObjectif').append(newRow);
+                            })
+
+
+                        } else {
+                           
+                            Pass = true;
+                            console.log("Passevaluation", response.ListObjectifs);
+                            response.ListObjectifs.forEach(function (item) {
+                                console.log("item", item);
+                                var newRow = document.createElement('tr');
+
+                                var TDObjectif = document.createElement('td');
+                                $(TDObjectif).prop('name', 'Objectif');                             
+                                $(TDObjectif).append(item.Titre_Obj);
+                                newRow.appendChild(TDObjectif);
+
+                                var TDPonderation = document.createElement('td');
+                                $(TDPonderation).prop('name', 'Ponderation');                           
+                                $(TDPonderation).append(item.Ponderation);
+                                newRow.appendChild(TDPonderation);
+
+                                //  KPI
+                                var TDKPI = document.createElement('td');
+                                $(TDKPI).prop('name', 'KPI');                             
+                                $(TDKPI).append(item.KPI);
+                                newRow.appendChild(TDKPI);
+
+                                //  ResultatatteinteObjectif
+                                var TDResultatatteinteObjectif = document.createElement('td');
+                                $(TDResultatatteinteObjectif).prop('name', 'TDResultatatteinteObjectif');
+                                $(TDResultatatteinteObjectif).attr("contenteditable", true);
+                                $(TDResultatatteinteObjectif).append("");
+                                newRow.appendChild(TDResultatatteinteObjectif);
+
+
+                                // Commentaire
+                                var TDCommentaire = document.createElement('td');
+                                $(TDCommentaire).prop('name', 'Commentaire');
+                             
+                                $(TDCommentaire).append(item.Commantaire_Manager);
+                                newRow.appendChild(TDCommentaire);
+
+                                // Score
+                                var TDScore = document.createElement('td');
+                                $(TDScore).prop('name', 'Score');
+                                $(TDScore).attr("contenteditable", true);
+                                $(TDScore).append("");
+                                newRow.appendChild(TDScore);
+
+
+
+
+
+                                
+
+                                $('#tableEvaluation').append(newRow);
+                                
+                            })
+                        }
+                       
                     }
                      })
 

@@ -35,7 +35,24 @@ namespace Crud.Controllers
         public JsonResult SaveObjectif(List<Objectif> objectifs ,int CodeUtilisateur)
         {
             var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
-            Utilisateur.Objectifs.AddRange(objectifs);
+            if (Utilisateur.Objectifs == null || Utilisateur.Objectifs.Count == 0)
+                Utilisateur.Objectifs.AddRange(objectifs);
+            else
+            {
+                List<Objectif> ObjUtilisateur = new List<Objectif>();
+                ObjUtilisateur=Utilisateur.Objectifs.ToList();
+                foreach (var obj in ObjUtilisateur.ToList())
+                {
+                    //Utilisateur.Objectifs.Remove(obj);
+                    var objecct= db.Objectifs.Find(obj.Id);
+                    db.Objectifs.Remove(objecct);
+                    db.SaveChanges();
+                }
+                Utilisateur.Objectifs.AddRange(objectifs);
+                db.SaveChanges();
+            }
+                
+
             db.SaveChanges();
 
 
@@ -59,14 +76,21 @@ namespace Crud.Controllers
             var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
            var ListObjectifs= Utilisateur.Objectifs;
             if (ListObjectifs.Count()==0)
-            { return Json("Failed", JsonRequestBehavior.AllowGet); }
+            {
+                return Json(new { Resultat = "Failed", ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+            
+            
+            
+            }
             else if(ListObjectifs != null && ListObjectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve))
             {
-                { return Json("Failed", JsonRequestBehavior.AllowGet); }
+                return Json(new { Resultat = "Failed", ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+               
             }
             else
             {
-                return Json("Sucess", JsonRequestBehavior.AllowGet);
+                return Json(new { Resultat = "Sucess", ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+           
             }
 
 
