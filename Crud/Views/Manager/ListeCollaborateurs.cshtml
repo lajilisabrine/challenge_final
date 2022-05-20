@@ -221,7 +221,7 @@
 
                                     <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
                                     <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
-                                   
+
                                 </div>
 
                                 <div id="Evaluation-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -240,7 +240,7 @@
 
                                         <div class="form-group  col-md-4">
                                             <label for="FreinsTextarea">Freins</label>
-                                            <textarea class="form-control" id="FreinsTextarea" rows="3"  style=" resize: none;"></textarea>
+                                            <textarea class="form-control" id="FreinsTextarea" rows="3" style=" resize: none;"></textarea>
                                         </div>
 
 
@@ -274,9 +274,21 @@
 
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12 mt--30 mb--20">
-                                        <label for="exampleFormControlTextarea1">Total Score</label>
-                                        <input type="text" id="inputSubject" class="form-control" />
+                                    <div class="row ">
+
+                                        <div class="form-group col-md-6 mt--30 mb--20">
+                                            <label for="exampleFormControlTextarea1">Total Score</label>
+                                            <input type="text" id="inputScore" class="form-control" />
+                                        </div>
+                                        <div class="form-group col-md-6 mt--30 mb--20">
+                                            <label for="exampleFormControlTextarea1">Appreciation</label>
+                                            <select id="Appreciation" class="form-control">
+                                              
+                                                <option value="0" > Passable</option>
+                                                <option value="1">Assez_Bien</option>
+                                                <option value="2">Excellent</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="card-footer">
@@ -286,8 +298,7 @@
                                         </div>
                                         <div class="col-md-12 text-center">
 
-                                            @*<button class="btn btn-primary" onclick="stepper.previous()">Previous</button>*@
-                                            <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
+                                            <button type="submit" id="sumbitButtonEvalution" class="btn btn-primary">Enregistrer</button>
 
                                         </div>
                                     </div>
@@ -299,7 +310,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                      
+
                     </div>
                 </div>
                 <!-- /.card -->
@@ -331,7 +342,52 @@
         window.stepper = new Stepper(document.querySelector('.bs-stepper'))
     })
 
+    $("#sumbitButtonEvalution").on("click", function () {
+        var Entretein = {};
+        Entretein.PointForts = $("#PointForTextarea").val();
+        Entretein.Freins_Rencontres = $("#FreinsTextarea").val();
+        Entretein.Note = $("#inputScore").val();
+        Entretein.Appreciation = $("#Appreciation").val();
+        console.log("item", PointForTextarea);
+        console.log("item", FreinsTextarea);
+        console.log("item", inputScore);
+        console.log("item", Appreciation);
+        var objectifs = [];
+        var tbEvaluation= $('#tableEvaluation:eq(0) tbody');
+        tbEvaluation.find("tr").each(function (index, element) {
 
+            console.log("item", element);
+            var Objectif = {
+                Titre_Obj: $(element).find('td').eq(0).html(),
+                Ponderation: parseInt($(element).find('td').eq(1).html()),
+                KPI: $(element).find('td').eq(2).html(),
+                Ressultat: $(element).find('td').eq(3).html(),
+                Commantaire_Manager: $(element).find('td').eq(4).html(),
+                Annee: Annee
+
+            }
+           
+            objectifs.push(Objectif);
+            Objectif = {};
+
+        });
+
+          $.ajax({
+                    async: false,
+                    type: "post",
+                    dataType: "JSON",
+                    url: "@Url.Action("Saveuserevaluation", "Manager")",
+                    data: { Entretein },
+                    success: function (response) {
+                        console.log("response", response);
+                     
+
+                     
+
+                    }
+                })
+
+    })
     $("#Next").on("click", function () {
         var count = table.rows({ selected: true }).count();
         if (count == 0) {
@@ -345,11 +401,11 @@
         } else {
             stepper.next();
         }
-      
+
 
     })
     //$("#Next1").on("click", function () {
-       
+
 
     //    console.log("Pass",Pass);
     //    stepper.next().next()
@@ -357,7 +413,7 @@
 
     //})
 
-   
+
     $(document).ready(function () {
 
         $('#tableclient thead tr')
@@ -378,7 +434,7 @@
             },
             order: [[1, 'asc']],
             orderCellsTop: true,
-            fixedHeader: false,          
+            fixedHeader: false,
             initComplete: function () {
                 var api = this.api();
 
@@ -388,7 +444,7 @@
                     .eq(0)
                     .each(function (colIdx) {
                         if (colIdx != 0) {
-                         
+
                             // Set the header cell to contain the input element
                             var cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -438,7 +494,7 @@
             var Jsondata = JSON.stringify(table.row({ selected: true }).data());
 
             if (Jsondata !== undefined) {
-              
+
                 toastr.success('Vous avez sélectionné Utilisateur :' + selectedRows[0][2] + ' code :' + selectedRows[0][1]);
                 $('#Code').val(selectedRows[0][1]);
                 var CodeUtilisateur = selectedRows[0]["DT_RowId"];
@@ -450,8 +506,17 @@
                     data: { CodeUtilisateur },
                     success: function (response) {
                         console.log("response", response);
+                        if (response.Enattente) {
+
+                            $("#sumbitButtonEvalution").hide();
+                        } else {
+                            $("#sumbitButtonEvalution").show();
+                        }
+
                         if (response.Resultat == "Failed") {
-                            console.log("Passevaluation", response.ListObjectifs);
+                            //console.log("Passevaluation", response.ListObjectifs);
+                            console.log(" response Enattente", response.Enattente);
+
                             Pass = false;
                             response.ListObjectifs.forEach(function (item) {
                                 console.log("item", item);
@@ -501,7 +566,7 @@
 
 
                         } else {
-                           
+
                             Pass = true;
                             console.log("Passevaluation", response.ListObjectifs);
                             response.ListObjectifs.forEach(function (item) {
@@ -509,18 +574,18 @@
                                 var newRow = document.createElement('tr');
 
                                 var TDObjectif = document.createElement('td');
-                                $(TDObjectif).prop('name', 'Objectif');                             
+                                $(TDObjectif).prop('name', 'Objectif');
                                 $(TDObjectif).append(item.Titre_Obj);
                                 newRow.appendChild(TDObjectif);
 
                                 var TDPonderation = document.createElement('td');
-                                $(TDPonderation).prop('name', 'Ponderation');                           
+                                $(TDPonderation).prop('name', 'Ponderation');
                                 $(TDPonderation).append(item.Ponderation);
                                 newRow.appendChild(TDPonderation);
 
                                 //  KPI
                                 var TDKPI = document.createElement('td');
-                                $(TDKPI).prop('name', 'KPI');                             
+                                $(TDKPI).prop('name', 'KPI');
                                 $(TDKPI).append(item.KPI);
                                 newRow.appendChild(TDKPI);
 
@@ -535,7 +600,7 @@
                                 // Commentaire
                                 var TDCommentaire = document.createElement('td');
                                 $(TDCommentaire).prop('name', 'Commentaire');
-                             
+
                                 $(TDCommentaire).append(item.Commantaire_Manager);
                                 newRow.appendChild(TDCommentaire);
 
@@ -550,15 +615,15 @@
 
 
 
-                                
+
 
                                 $('#tableEvaluation').append(newRow);
-                                
+
                             })
                         }
-                       
+
                     }
-                     })
+                })
 
 
 
@@ -600,10 +665,10 @@
         newRow.appendChild(TDCommentaire);
 
         // Prenom
-        
 
 
-      
+
+
 
 
         // Action
@@ -612,7 +677,7 @@
         newRow.appendChild(TDAction);
 
         $('#tableObjectif').append(newRow);
- 
+
         console.log("Add Row");
 
     });
@@ -620,8 +685,8 @@
     $('#tableObjectif').on('click', 'td .Supprimer', function () {
 
         var tr = $(this).closest('tr').remove();
-       
-       
+
+
     });
     $('#tableObjectif').on('click', 'td .Valider', function () {
        // var Objectif = $(this).closest('tr').find("td:eq(0) input[name='Addition']").val();
@@ -697,7 +762,7 @@
         var Objectif = $(this).closest('tr').find("td:eq(0)").attr('contenteditable', 'false');
         var Ponderation = $(this).closest('tr').find("td:eq(1)").attr('contenteditable', 'false');
         var KPI = $(this).closest('tr').find("td:eq(2)").attr('contenteditable', 'false');
-        var Commentaire = $(this).closest('tr').find("td:eq(3)").attr('contenteditable', 'false');     
+        var Commentaire = $(this).closest('tr').find("td:eq(3)").attr('contenteditable', 'false');
         $(this).closest('tr').find("td:eq(4) .Supprimer").remove();
         $(this).closest('tr').find("td:eq(4) .Valider").remove();
 
@@ -707,16 +772,16 @@
 
 </script>
 <script>
-    
+
 
   $('#sumbitButton').click(function (event) {
 
-           
+
       var objectifs = [];
 
 
-  
-     
+
+
       var Annee = parseInt($("#Annee").val().substring(0, 4));
 
       var tbObjectif = $('#tableObjectif:eq(0) tbody');
@@ -763,9 +828,9 @@
       console.log("Objectif", objectifs);
       console.log("IdUtlisateur", selectedRows[0]["DT_RowId"]);
 
-    
 
-         
+
+
       $.ajax({
           async: false,
           type: "post",

@@ -59,7 +59,36 @@ namespace Crud.Controllers
 
             return Json("Sucess", JsonRequestBehavior.AllowGet);
         }
-     
+        public JsonResult Saveuserevaluation(Entretein Entretein)
+        {
+            //var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
+
+            //if (Utilisateur.Objectifs == null || Utilisateur.Objectifs.Count == 0)
+            //    Utilisateur.Objectifs.AddRange(objectifs);
+            //else
+            //{
+            //    List<Objectif> ObjUtilisateur = new List<Objectif>();
+            //    ObjUtilisateur = Utilisateur.Objectifs.ToList();
+            //    foreach (var obj in ObjUtilisateur.ToList())
+            //    {
+            //        //Utilisateur.Objectifs.Remove(obj);
+            //        var objecct = db.Objectifs.Find(obj.Id);
+            //        db.Objectifs.Remove(objecct);
+            //        db.SaveChanges();
+            //    }
+            //    Utilisateur.Objectifs.AddRange(objectifs);
+            //    db.SaveChanges();
+            //}
+
+            db.Entreteins.Add(Entretein);
+            db.SaveChanges();
+
+
+
+            return Json("Sucess", JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult ListeCollaborateurs()
         {
             var CurrentUser = Session["CurrentUser"] as Utilisateur;
@@ -77,19 +106,20 @@ namespace Crud.Controllers
            var ListObjectifs= Utilisateur.Objectifs;
             if (ListObjectifs.Count()==0)
             {
-                return Json(new { Resultat = "Failed", ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+                return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
             
             
             
             }
             else if(ListObjectifs != null && ListObjectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve))
             {
-                return Json(new { Resultat = "Failed", ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+                return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
                
             }
             else
             {
-                return Json(new { Resultat = "Sucess", ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+                var Enattente = ListObjectifs.Any(x => x.Status_Obj == Status_Obj.En_attente);
+                return Json(new { Resultat = "Sucess",Enattente= Enattente, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
            
             }
 
