@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Crud.Models.Ticket>
 @{
     ViewBag.Title = "ListeTICKETS";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -46,7 +46,7 @@
                 <a class="btn btn-app" style="height: 60px;" id="Traiterdemande">
                     <i class="fas fa-plus"></i> Traiter
                 </a>
-               
+
                 <a class="btn btn-app delete" style="height: 60px;" id="SupprimerClient">
                     <i class="fas fa-trash"></i> Supprimer
                 </a>
@@ -60,18 +60,32 @@
                             <thead>
                                 <tr role="row">
                                     <th style="visibility: hidden"></th>
-                                    <th>Matricule</th>
-                                    <th>Nom et prenom</th>
+                                    @*<th>Matricule</th>
+                                    <th>Nom et prenom</th>*@
                                     <th>Objet</th>
                                     <th>Date Creation</th>
                                     <th>Type</th>
                                     <th>Message</th>
-                                   
-                                    
+
+
                                 </tr>
 
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @foreach (var Ticket in Model)
+                                {
+                                    <tr id="@Ticket.Id">
+                                        <td></td>
+                                        <th>@Ticket.Objet</th>
+                                        <th>@Ticket.DateCreation </th>
+                                        <th>@Ticket.Type</th>
+                                        <th>@Ticket.Message</th>
+                                      
+                                        
+
+                                    </tr>
+                                }
+                            </tbody>
 
                         </table>
                     </div>

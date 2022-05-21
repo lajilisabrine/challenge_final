@@ -130,8 +130,8 @@
                                                             <th style="visibility: hidden"></th>
                                                             <th>Matricule</th>
                                                             <th>Email</th>
-                                                            <th>Prenom</th>
-                                                            <th>Nom</th>
+                                                            <th>Nom et Prenom</th>
+                                                            
 
                                                             <th>Poste</th>
                                                             <th>Direction</th>
@@ -151,12 +151,12 @@
                                                                 <td></td>
                                                                 <th>@Utilisateur.Matricule</th>
                                                                 <th>@Utilisateur.Email</th>
-                                                                <th>@Utilisateur.Prenom</th>
-                                                                <th>@Utilisateur.Nom</th>
+                                                             
+                                                                <th>@Utilisateur.FullName</th>
                                                                 <th>@Utilisateur.Poste</th>
                                                                 <th>@Utilisateur.Direction</th>
                                                                 <th>@Utilisateur.Etablissement</th>
-                                                                <th>@*@Utilisateur.Date_Recrutement.ToString("MM/dd/yyyy")*@</th>
+                                                                <th>@Utilisateur.Date_Recrutement.Value.ToString("MM/dd/yyyy")</th>
 
 
                                                             </tr>
@@ -229,7 +229,7 @@
 
                                         <div class="form-group  col-md-4">
 
-                                            <label for="PointForTextarea">Point Fort</label>
+                                            <label for="PointForTextarea">Points Fort</label>
                                             <textarea class="form-control" id="PointForTextarea" rows="3" style=" resize: none;"></textarea>
 
                                         </div>
@@ -239,7 +239,7 @@
                                         </div>
 
                                         <div class="form-group  col-md-4">
-                                            <label for="FreinsTextarea">Freins</label>
+                                            <label for="FreinsTextarea">Freins Rencontrés </label>
                                             <textarea class="form-control" id="FreinsTextarea" rows="3" style=" resize: none;"></textarea>
                                         </div>
 
@@ -265,7 +265,9 @@
 
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody>
+                                                            
+                                                        </tbody>
 
                                                     </table>
                                                 </div>
@@ -274,27 +276,46 @@
 
                                         </div>
                                     </div>
-                                    <div class="row ">
+                                    @*<div class="row col-md-12 text-center ">
 
-                                        <div class="form-group col-md-6 mt--30 mb--20">
-                                            <label for="exampleFormControlTextarea1">Total Score</label>
-                                            <input type="text" id="inputScore" class="form-control" />
-                                        </div>
-                                        <div class="form-group col-md-6 mt--30 mb--20">
-                                            <label for="exampleFormControlTextarea1">Appreciation</label>
-                                            <select id="Appreciation" class="form-control">
-                                              
-                                                <option value="0" > Passable</option>
+            <div class="form-group col-md-6 mt--30 mb--20">
+                <label for="exampleFormControlTextarea1">Total Score</label>
+                <input type="text" id="inputScore" class="form-control" />
+            </div>
+            <div class="form-group col-md-6 mt--30 mb--20">
+                <label for="exampleFormControlTextarea1">Appreciation</label>
+                <select id="Appreciation" class="form-control">
+
+                    <option value="0" > Passable</option>
+                    <option value="1">Assez_Bien</option>
+                    <option value="2">Excellent</option>
+                </select>
+            </div>
+        </div>*@
+                                    <div class="d-flex flex-column align-items-end  my-2">
+                                        <div class="form-group">
+                                            <div class="col-xs-3">
+                                                <label for="ex1" style="font-size: 12px;">Score Final</label>
+                                                <input class="form-control shadow" id="inputScore" type="text">
+                                            </div>
+
+                                            <label for="appreciation" style="font-size: 12px;">Appreciation</label>
+                                            <select id="Appreciation" class="form-control shadow ">
+                                                <option value="0"> Passable</option>
                                                 <option value="1">Assez_Bien</option>
                                                 <option value="2">Excellent</option>
                                             </select>
-                                        </div>
-                                    </div>
 
+                                            @*<label for="exampleFormControlTextarea1">Score Final</label>
+        <input type="text" id="inputScore" class="form-control" />*@
+                                        </div>
+                                        
+                                       
+                                    </div>
                                     <div class="card-footer">
                                         <div class="form-group">
                                             <label for="inputSubject">Commentaire Manager</label>
-                                            <input type="text" id="inputSubject" class="form-control" />
+                                            <input type="text" id="cmtmanager" class="form-control" />
                                         </div>
                                         <div class="col-md-12 text-center">
 
@@ -348,10 +369,12 @@
         Entretein.Freins_Rencontres = $("#FreinsTextarea").val();
         Entretein.Note = $("#inputScore").val();
         Entretein.Appreciation = $("#Appreciation").val();
+        Entretein.Commantaire_Manager = $("#cmtmanager").val();
         console.log("item", PointForTextarea);
         console.log("item", FreinsTextarea);
         console.log("item", inputScore);
         console.log("item", Appreciation);
+        console.log("item", cmtmanager);
         var objectifs = [];
         var tbEvaluation= $('#tableEvaluation:eq(0) tbody');
         tbEvaluation.find("tr").each(function (index, element) {
