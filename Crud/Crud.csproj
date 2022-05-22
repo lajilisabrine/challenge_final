@@ -191,6 +191,10 @@
     <Compile Include="Migrations\202205151544588_obj.designer.cs">
       <DependentUpon>202205151544588_obj.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205200035493_requi.cs" />
+    <Compile Include="Migrations\202205200035493_requi.designer.cs">
+      <DependentUpon>202205200035493_requi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -2529,6 +2533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205151544588_obj.resx">
       <DependentUpon>202205151544588_obj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205200035493_requi.resx">
+      <DependentUpon>202205200035493_requi.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

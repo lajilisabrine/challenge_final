@@ -130,8 +130,8 @@
                                                             <th style="visibility: hidden"></th>
                                                             <th>Matricule</th>
                                                             <th>Email</th>
-                                                            <th>Prenom</th>
-                                                            <th>Nom</th>
+                                                            <th>Nom et Prenom</th>
+                                                            
 
                                                             <th>Poste</th>
                                                             <th>Direction</th>
@@ -151,8 +151,8 @@
                                                                 <td></td>
                                                                 <th>@Utilisateur.Matricule</th>
                                                                 <th>@Utilisateur.Email</th>
-                                                                <th>@Utilisateur.Prenom</th>
-                                                                <th>@Utilisateur.Nom</th>
+                                                             
+                                                                <th>@Utilisateur.FullName</th>
                                                                 <th>@Utilisateur.Poste</th>
                                                                 <th>@Utilisateur.Direction</th>
                                                                 <th>@Utilisateur.Etablissement</th>
@@ -221,7 +221,7 @@
 
                                     <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
                                     <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
-                                   
+
                                 </div>
 
                                 <div id="Evaluation-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -229,8 +229,8 @@
 
                                         <div class="form-group  col-md-4">
 
-                                            <label for="exampleFormControlTextarea1">Point Fort</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <label for="PointForTextarea">Points Fort</label>
+                                            <textarea class="form-control" id="PointForTextarea" rows="3" style=" resize: none;"></textarea>
 
                                         </div>
                                         <div class="form-group  col-md-2">
@@ -239,8 +239,8 @@
                                         </div>
 
                                         <div class="form-group  col-md-4">
-                                            <label for="exampleFormControlTextarea1">Freins</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <label for="FreinsTextarea">Freins Rencontrés </label>
+                                            <textarea class="form-control" id="FreinsTextarea" rows="3" style=" resize: none;"></textarea>
                                         </div>
 
 
@@ -251,7 +251,7 @@
                                         <div class="col-12">
                                             <div class="cart-table table-responsive">
                                                 <div id="tablListeMagasins_wrapper" class="dataTables_wrapper">
-                                                    <table class="table" id="tableObjectif">
+                                                    <table class="table" id="tableEvaluation">
                                                         <thead>
                                                             <tr>
                                                                 <th style="font-size: 12px; ">Objectif</th>
@@ -265,7 +265,9 @@
 
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody>
+                                                            
+                                                        </tbody>
 
                                                     </table>
                                                 </div>
@@ -274,20 +276,50 @@
 
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12 mt--30 mb--20">
-                                        <label for="exampleFormControlTextarea1">Total Score</label>
-                                        <input type="text" id="inputSubject" class="form-control" />
-                                    </div>
+                                    @*<div class="row col-md-12 text-center ">
 
+            <div class="form-group col-md-6 mt--30 mb--20">
+                <label for="exampleFormControlTextarea1">Total Score</label>
+                <input type="text" id="inputScore" class="form-control" />
+            </div>
+            <div class="form-group col-md-6 mt--30 mb--20">
+                <label for="exampleFormControlTextarea1">Appreciation</label>
+                <select id="Appreciation" class="form-control">
+
+                    <option value="0" > Passable</option>
+                    <option value="1">Assez_Bien</option>
+                    <option value="2">Excellent</option>
+                </select>
+            </div>
+        </div>*@
+                                    <div class="d-flex flex-column align-items-end  my-2">
+                                        <div class="form-group">
+                                            <div class="col-xs-3">
+                                                <label for="ex1" style="font-size: 12px;">Score Final</label>
+                                                <input class="form-control shadow" id="inputScore" type="text">
+                                            </div>
+
+                                            <label for="appreciation" style="font-size: 12px;">Appreciation</label>
+                                            <select id="Appreciation" class="form-control shadow ">
+                                                <option value="0"> Passable</option>
+                                                <option value="1">Assez_Bien</option>
+                                                <option value="2">Excellent</option>
+                                            </select>
+
+                                            @*<label for="exampleFormControlTextarea1">Score Final</label>
+        <input type="text" id="inputScore" class="form-control" />*@
+                                        </div>
+                                        
+                                       
+                                    </div>
                                     <div class="card-footer">
                                         <div class="form-group">
                                             <label for="inputSubject">Commentaire Manager</label>
-                                            <input type="text" id="inputSubject" class="form-control" />
+                                            <input type="text" id="cmtmanager" class="form-control" />
                                         </div>
                                         <div class="col-md-12 text-center">
 
-                                            <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
-                                            <button type="submit" id="sumbitButton" class="btn btn-primary">Enregistrer</button>
+                                            <button type="submit" id="sumbitButtonEvalution" class="btn btn-primary">Enregistrer</button>
 
                                         </div>
                                     </div>
@@ -299,7 +331,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                      
+
                     </div>
                 </div>
                 <!-- /.card -->
@@ -322,33 +354,89 @@
 <!-- Page specific script -->
 <script>
 
-
+    let selectedRows;
+    let Pass = false;
+    var table;
 
     // BS-Stepper Init
     document.addEventListener('DOMContentLoaded', function () {
         window.stepper = new Stepper(document.querySelector('.bs-stepper'))
     })
 
+    $("#sumbitButtonEvalution").on("click", function () {
+        var Entretein = {};
+        Entretein.PointForts = $("#PointForTextarea").val();
+        Entretein.Freins_Rencontres = $("#FreinsTextarea").val();
+        Entretein.Note = $("#inputScore").val();
+        Entretein.Appreciation = $("#Appreciation").val();
+        Entretein.Commantaire_Manager = $("#cmtmanager").val();
+        console.log("item", PointForTextarea);
+        console.log("item", FreinsTextarea);
+        console.log("item", inputScore);
+        console.log("item", Appreciation);
+        console.log("item", cmtmanager);
+        var objectifs = [];
+        var tbEvaluation= $('#tableEvaluation:eq(0) tbody');
+        tbEvaluation.find("tr").each(function (index, element) {
 
+            console.log("item", element);
+            var Objectif = {
+                Titre_Obj: $(element).find('td').eq(0).html(),
+                Ponderation: parseInt($(element).find('td').eq(1).html()),
+                KPI: $(element).find('td').eq(2).html(),
+                Ressultat: $(element).find('td').eq(3).html(),
+                Commantaire_Manager: $(element).find('td').eq(4).html(),
+                Annee: Annee
+
+            }
+           
+            objectifs.push(Objectif);
+            Objectif = {};
+
+        });
+
+          $.ajax({
+                    async: false,
+                    type: "post",
+                    dataType: "JSON",
+                    url: "@Url.Action("Saveuserevaluation", "Manager")",
+                    data: { Entretein },
+                    success: function (response) {
+                        console.log("response", response);
+                     
+
+                     
+
+                    }
+                })
+
+    })
     $("#Next").on("click", function () {
         var count = table.rows({ selected: true }).count();
         if (count == 0) {
             toastr.error('Aucun Utilisateur sélectionné .');
             return;
         }
-      
-        stepper.next()
+        console.log("Pass", Pass);
+        if (Pass) {
+            stepper.next();
+            stepper.next();
+        } else {
+            stepper.next();
+        }
+
 
     })
-    $("#Next1").on("click", function () {
-       
+    //$("#Next1").on("click", function () {
 
-        stepper.next()
 
-    })
+    //    console.log("Pass",Pass);
+    //    stepper.next().next()
+    //   // stepper.next()
 
-    let selectedRows;
-    var table;
+    //})
+
+
     $(document).ready(function () {
 
         $('#tableclient thead tr')
@@ -369,7 +457,7 @@
             },
             order: [[1, 'asc']],
             orderCellsTop: true,
-            fixedHeader: true,
+            fixedHeader: false,
             initComplete: function () {
                 var api = this.api();
 
@@ -379,7 +467,7 @@
                     .eq(0)
                     .each(function (colIdx) {
                         if (colIdx != 0) {
-                            console.log("colIdx", colIdx);
+
                             // Set the header cell to contain the input element
                             var cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -429,7 +517,7 @@
             var Jsondata = JSON.stringify(table.row({ selected: true }).data());
 
             if (Jsondata !== undefined) {
-                console.log("selectedRows", selectedRows[0]);
+
                 toastr.success('Vous avez sélectionné Utilisateur :' + selectedRows[0][2] + ' code :' + selectedRows[0][1]);
                 $('#Code').val(selectedRows[0][1]);
                 var CodeUtilisateur = selectedRows[0]["DT_RowId"];
@@ -440,9 +528,125 @@
                     url: "@Url.Action("Passevaluation", "Manager")",
                     data: { CodeUtilisateur },
                     success: function (response) {
-                        alert(response);
+                        console.log("response", response);
+                        if (response.Enattente) {
+
+                            $("#sumbitButtonEvalution").hide();
+                        } else {
+                            $("#sumbitButtonEvalution").show();
+                        }
+
+                        if (response.Resultat == "Failed") {
+                            //console.log("Passevaluation", response.ListObjectifs);
+                            console.log(" response Enattente", response.Enattente);
+
+                            Pass = false;
+                            response.ListObjectifs.forEach(function (item) {
+                                console.log("item", item);
+                                var newRow = document.createElement('tr');
+
+                                var TDObjectif = document.createElement('td');
+                                $(TDObjectif).prop('name', 'Objectif');
+                                $(TDObjectif).attr("contenteditable", true);
+                                $(TDObjectif).append(item.Titre_Obj);
+                                newRow.appendChild(TDObjectif);
+
+                                var TDPonderation = document.createElement('td');
+                                $(TDPonderation).prop('name', 'Ponderation');
+                                $(TDPonderation).attr("contenteditable", true);
+                                $(TDPonderation).append(item.Ponderation);
+                                newRow.appendChild(TDPonderation);
+
+                                //  KPI
+                                var TDKPI = document.createElement('td');
+                                $(TDKPI).prop('name', 'KPI');
+                                $(TDKPI).attr("contenteditable", true);
+                                $(TDKPI).append(item.KPI);
+                                newRow.appendChild(TDKPI);
+
+
+                                // Nom
+                                var TDCommentaire = document.createElement('td');
+                                $(TDCommentaire).prop('name', 'Commentaire');
+                                $(TDCommentaire).attr("contenteditable", true);
+                                $(TDCommentaire).append(item.Commantaire_Manager);
+                                newRow.appendChild(TDCommentaire);
+
+                                // Prenom
+
+
+
+
+
+
+                                // Action
+                                var TDAction = document.createElement('td');
+                                $(TDAction).append('<i title="Valider" class="far fa-thumbs-up Valider"></i> <i class="fas fa-trash Supprimer" title="Supprimer"></i>');
+                                newRow.appendChild(TDAction);
+
+                                $('#tableObjectif').append(newRow);
+                            })
+
+
+                        } else {
+
+                            Pass = true;
+                            console.log("Passevaluation", response.ListObjectifs);
+                            response.ListObjectifs.forEach(function (item) {
+                                console.log("item", item);
+                                var newRow = document.createElement('tr');
+
+                                var TDObjectif = document.createElement('td');
+                                $(TDObjectif).prop('name', 'Objectif');
+                                $(TDObjectif).append(item.Titre_Obj);
+                                newRow.appendChild(TDObjectif);
+
+                                var TDPonderation = document.createElement('td');
+                                $(TDPonderation).prop('name', 'Ponderation');
+                                $(TDPonderation).append(item.Ponderation);
+                                newRow.appendChild(TDPonderation);
+
+                                //  KPI
+                                var TDKPI = document.createElement('td');
+                                $(TDKPI).prop('name', 'KPI');
+                                $(TDKPI).append(item.KPI);
+                                newRow.appendChild(TDKPI);
+
+                                //  ResultatatteinteObjectif
+                                var TDResultatatteinteObjectif = document.createElement('td');
+                                $(TDResultatatteinteObjectif).prop('name', 'TDResultatatteinteObjectif');
+                                $(TDResultatatteinteObjectif).attr("contenteditable", true);
+                                $(TDResultatatteinteObjectif).append("");
+                                newRow.appendChild(TDResultatatteinteObjectif);
+
+
+                                // Commentaire
+                                var TDCommentaire = document.createElement('td');
+                                $(TDCommentaire).prop('name', 'Commentaire');
+
+                                $(TDCommentaire).append(item.Commantaire_Manager);
+                                newRow.appendChild(TDCommentaire);
+
+                                // Score
+                                var TDScore = document.createElement('td');
+                                $(TDScore).prop('name', 'Score');
+                                $(TDScore).attr("contenteditable", true);
+                                $(TDScore).append("");
+                                newRow.appendChild(TDScore);
+
+
+
+
+
+
+
+                                $('#tableEvaluation').append(newRow);
+
+                            })
+                        }
+
                     }
-                     })
+                })
 
 
 
@@ -484,10 +688,10 @@
         newRow.appendChild(TDCommentaire);
 
         // Prenom
-        
 
 
-      
+
+
 
 
         // Action
@@ -496,7 +700,7 @@
         newRow.appendChild(TDAction);
 
         $('#tableObjectif').append(newRow);
- 
+
         console.log("Add Row");
 
     });
@@ -504,8 +708,8 @@
     $('#tableObjectif').on('click', 'td .Supprimer', function () {
 
         var tr = $(this).closest('tr').remove();
-       
-       
+
+
     });
     $('#tableObjectif').on('click', 'td .Valider', function () {
        // var Objectif = $(this).closest('tr').find("td:eq(0) input[name='Addition']").val();
@@ -581,7 +785,7 @@
         var Objectif = $(this).closest('tr').find("td:eq(0)").attr('contenteditable', 'false');
         var Ponderation = $(this).closest('tr').find("td:eq(1)").attr('contenteditable', 'false');
         var KPI = $(this).closest('tr').find("td:eq(2)").attr('contenteditable', 'false');
-        var Commentaire = $(this).closest('tr').find("td:eq(3)").attr('contenteditable', 'false');     
+        var Commentaire = $(this).closest('tr').find("td:eq(3)").attr('contenteditable', 'false');
         $(this).closest('tr').find("td:eq(4) .Supprimer").remove();
         $(this).closest('tr').find("td:eq(4) .Valider").remove();
 
@@ -591,16 +795,16 @@
 
 </script>
 <script>
-    
+
 
   $('#sumbitButton').click(function (event) {
 
-           
+
       var objectifs = [];
 
 
-  
-     
+
+
       var Annee = parseInt($("#Annee").val().substring(0, 4));
 
       var tbObjectif = $('#tableObjectif:eq(0) tbody');
@@ -647,9 +851,9 @@
       console.log("Objectif", objectifs);
       console.log("IdUtlisateur", selectedRows[0]["DT_RowId"]);
 
-    
 
-         
+
+
       $.ajax({
           async: false,
           type: "post",
