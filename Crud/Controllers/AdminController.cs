@@ -81,6 +81,15 @@ namespace Crud.Controllers
             Task.Run(() => SendMail(Utilisateur.Email, "Nouveau compte Utilisateur -Challenge", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Votre compte a été Modifier par l'administrateur.{Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Challenge"));
             return Json("Sucess", JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult DetailUtilisateur(int code)
+        {
+            var UtilisateurDB = db.Utilisateurs.Find(code);
+            
+            return Json(UtilisateurDB, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult SaveUtilisateur(Utilisateur Utilisateur)
         {

@@ -58,21 +58,22 @@
 
                 <div class="row">
                     <div class="col-sm-14">
-                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
+                        <table id="tableclient" class="table table-bordered table-striped dataTable dtr-inline" role="grid" style="text-align: center;">
                             <thead>
                                 <tr role="row">
                                     <th style="visibility: hidden"></th>
                                     <th>Matricule</th>
-                                    <th>Email</th>
+                                 
                                     <th>Prenom</th>
                                     <th>Nom</th>
-                                    <th>Telephone</th>
+                                
                                     <th>Role</th>
                                     <th>Poste</th>
                                     <th>Direction</th>
                                     <th>Etablissement</th>
-                                    <th>Manager</th>
-                                    <th>date de recrutement</th>
+                                   
+                                    <th>Date de Recrutement</th>
+                                    <th>Detais</th>
 
 
 
@@ -83,22 +84,31 @@
 
                                 @foreach (var Utilisateur in Model)
                                 {
-                                <tr id="@Utilisateur.Id">
-                                    <td></td>
-                                    <th>@Utilisateur.Matricule</th>
-                                    <th>@Utilisateur.Email</th>
-                                    <th>@Utilisateur.Prenom</th>
-                                    <th>@Utilisateur.Nom</th>
-                                    <th>@Utilisateur.Num_Tel</th>
-                                    <th>@Utilisateur.Role</th>
-                                    <th>@Utilisateur.Poste</th>
-                                    <th>@Utilisateur.Direction</th>
-                                    <th>@Utilisateur.Etablissement</th>
-                                    <th>@Utilisateur.Manager</th>
-                                    <th>@Utilisateur.Date_Recrutement</th>
+                                    <tr id="@Utilisateur.Id">
+                                        <td></td>
+                                        <th>@Utilisateur.Matricule</th>
+                                      
+                                        <th>@Utilisateur.Prenom</th>
+                                        <th>@Utilisateur.Nom</th>
+                                      
+                                        <th>@Utilisateur.Role</th>
+                                        <th>@Utilisateur.Poste</th>
+                                        <th>@Utilisateur.Direction</th>
+                                        <th>@Utilisateur.Etablissement</th>
+                                       
+                                        <th>
+                                            @if (@Utilisateur.Date_Recrutement.HasValue)
+                                            {@Utilisateur.Date_Recrutement.Value.ToString("dd/MM/yyyy")}
+                                        </th>
+                                        <th>
+                                            <div class="tools">
+                                                <i class="fa fa-eye DetailUtilisateur" aria-hidden="true"></i>
 
+                                            </div>
 
-                                </tr>
+                                        </th>
+
+                                    </tr>
 
 
                                 }
@@ -137,11 +147,11 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="col-3"><label>Nom</label></div>
-                        <div class="col-12"><input type="text"  placeholder="Nom" class="form-control" id="ModalAjouterUtilisateurNom" /></div>
+                        <div class="col-12"><input type="text" placeholder="Nom" class="form-control" id="ModalAjouterUtilisateurNom" /></div>
                     </div>
                     <div class="col-6">
                         <div class="col-3"><label>Prenom</label></div>
-                        <div class="col-12"><input type="text"  placeholder="Prenom" class="form-control" id="ModalAjouterUtilisateurPrenom" /></div>
+                        <div class="col-12"><input type="text" placeholder="Prenom" class="form-control" id="ModalAjouterUtilisateurPrenom" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -149,12 +159,12 @@
                         <div class="col-3"><label>Email</label></div>
                         <div class="col-12"><input type="text" placeholder="Email" class="form-control" id="ModalAjouterUtilisateurEmail" /></div>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="col-3"><label>Matricule</label></div>
-                        <div class="col-12"><input type="text"  placeholder="Matricule" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
+                        <div class="col-12"><input type="text" placeholder="Matricule" class="form-control" id="ModalAjouterUtilisateurMatricule" /></div>
                     </div>
                     <div class="col-6">
                         <div class="col-3"><label>Telephone</label></div>
@@ -165,7 +175,7 @@
                     <div class="col-6">
                         <div class="col-3"><label>Role</label></div>
                         <select id="ModalAjouterUtilisateurRole" class="form-control">
-                             <option value="0"> User</option>
+                            <option value="0"> User</option>
                             <option value="2"> Manager</option>
                             <option value="3">RH </option>
                         </select>
@@ -178,23 +188,23 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="col-3"><label>Direction</label></div>
-                        <div class="col-12"><input type="text"  placeholder="Direction" class="form-control" id="ModalAjouterUtilisateurDirection" /></div>
+                        <div class="col-12"><input type="text" placeholder="Direction" class="form-control" id="ModalAjouterUtilisateurDirection" /></div>
                     </div>
                     <div class="col-6">
                         <div class="col-3"><label>Etablissement</label></div>
-                        <div class="col-12"><input type="text"  placeholder="Etablissement" class="form-control" id="ModalAjouterUtilisateurEtablissement" /></div>
+                        <div class="col-12"><input type="text" placeholder="Etablissement" class="form-control" id="ModalAjouterUtilisateurEtablissement" /></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="col-3"><label>Code Manager</label></div>
-                        <div class="col-12"><input type="text"  placeholder="Manager" class="form-control" id="ModalAjouterUtilisateurCodeManager" /></div>
+                        <div class="col-12"><input type="text" placeholder="Manager" class="form-control" id="ModalAjouterUtilisateurCodeManager" /></div>
                     </div>
                     <div class="col-6">
                         <div class="col-3"><label>Date_Recrutement</label></div>
                         <div class="col-12"><input type="date" placeholder="Date Recrutement" class="form-control" id="ModalAjouterUtilisateurDate_Recrutement" /></div>
                     </div>
-                </div> 
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -204,7 +214,6 @@
     </div>
 </div>
 <!-- Modal Ajouter Utilisateur -->
-
 <!-- Modal Modifier Utilisateur -->
 <div class="modal fade" id="ModalModifierUtilisateur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -270,7 +279,7 @@
                         <div class="col-3"><label>Etablissement</label></div>
                         <div class="col-12"><input type="text" class="form-control" id="ModalModifierUtilisateurEtablissement" /></div>
                     </div>
-                </div>                
+                </div>
 
             </div>
             <div class="modal-footer">
@@ -284,8 +293,49 @@
 <!-- Modal Modifier Utilisateur -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.1/toastr.min.js"></script>
+<!-- Modal Modaldetails Utilisateur   -->
+<div class="modal fade" id="ModaldetailsUtilisateur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detais Utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                <div class="row">
+                    <div class="col-12">
+                        <div class="col-3"><label>Email</label></div>
+                        <div class="col-12"><input type="text" class="form-control" id="ModaldetailsUtilisateurEmail"  readonly/></div>
+                    </div>
+                    
 
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="col-3"><label>Manager</label></div>
+                        <div class="col-12"><input type="text" class="form-control" id="ModaldetailsUtilisateurManager" readonly /></div>
+                    </div>
 
+                </div>
+                <div class="row">
+                       <div class="col-12">
+                        <div class="col-3"><label>Telephone</label></div>
+                        <div class="col-12"><input type="text" class="form-control" id="ModaldetailsUtilisateurTelephone" readonly/></div>
+                    </div>
+                </div>
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Modaldetails Utilisateur   -->
 <script>
     let selectedRows;
     var table;
@@ -325,16 +375,38 @@
 
         });
     });
+    $('.DetailUtilisateur').click(function () {
 
+        var code = $(this).closest('tr').attr('id'); // table row ID
+            $.ajax({
+                     dataType: "json",
+                      async: false,
+                     type: "Post",
+                     url: "@Url.Action("DetailUtilisateur", "Admin")",
+                        data: { code},
+                     success: function (data) {
+                         console.log("data", data);
+                         $("#ModaldetailsUtilisateurEmail").val(data.Email);
+                         $("#ModaldetailsUtilisateurManager").val(data.Manager);
+                         $("#ModaldetailsUtilisateurTelephone").val(data.Num_Tel);
+                         $('#ModaldetailsUtilisateur').modal('show');
+                }
+
+            });
+
+
+
+
+    });
     $('#AjouterUtilisateur').click(function () {
 
 
         $('#ModalAjouterUtilisateur').modal('show');
-          
+
     });
     $('#ModelModifierUtilisateurbtnsave').click(function () {
 
-     
+
         var Utilisateur = {};
         Utilisateur.Id = selectedRows[0]["DT_RowId"];
         Utilisateur.Nom = $('#ModalModifierUtilisateurNom').val();
@@ -346,7 +418,7 @@
         Utilisateur.Poste = $('#ModalModifierUtilisateurPoste').val();
         Utilisateur.Direction = $('#ModalModifierUtilisateurDirection').val();
         Utilisateur.Etablissement = $('#ModalModifierUtilisateurEtablissement').val();
-        Utilisateur.Manager = $('#ModalModifierUtilisateurCodeManager').val();
+        Utilisateur.Manager = $('#ModalModifierUtilisateurManager').val();
         Utilisateur.Date_Recrutement = $('#ModalModifierUtilisateurDate_Recrutement').val();
             $.ajax({
                      dataType: "json",
@@ -383,13 +455,28 @@
             return;
         }
 
+        var code = selectedRows[0]["DT_RowId"];
+        console.log("code", code);
+            $.ajax({
+                     dataType: "json",
+                      async: false,
+                     type: "Post",
+                     url: "@Url.Action("DetailUtilisateur", "Admin")",
+                        data: { code},
+                     success: function (data) {
+                         console.log("data", data);
+                         $('#ModalModifierUtilisateurEmail').val(data.Email);
+                         $('#ModalModifierUtilisateurTelephone').val(data.Num_Tel);
+                         $('#ModalModifierUtilisateurManager').val(data.Manager);
+                }
 
-    $('#ModalModifierUtilisateurNom').val(selectedRows[0][4]);
-    $('#ModalModifierUtilisateurPrenom').val(selectedRows[0][3]);
-    $('#ModalModifierUtilisateurEmail').val(selectedRows[0][2]);   
+            });
+    $('#ModalModifierUtilisateurNom').val(selectedRows[0][3]);
+    $('#ModalModifierUtilisateurPrenom').val(selectedRows[0][2]);
+  
     $('#ModalModifierUtilisateurMatricule').val(selectedRows[0][1]);
-        $('#ModalModifierUtilisateurTelephone').val(selectedRows[0][5]);
-        var Role = selectedRows[0][6];
+   
+        var Role = selectedRows[0][4];
         if (Role == 'RH') {
             $('#ModalModifierUtilisateurRole').val("3");
         } else if (Role == 'Manager') {
@@ -398,12 +485,12 @@
         {
             $('#ModalModifierUtilisateurRole').val("0");
         }
-        
 
-    $('#ModalModifierUtilisateurPoste').val(selectedRows[0][7]);
-    $('#ModalModifierUtilisateurDirection').val(selectedRows[0][8]);
-    $('#ModalModifierUtilisateurEtablissement').val(selectedRows[0][9]);
-    $('#ModalModifierUtilisateurManager').val(selectedRows[0][10]);   
+
+    $('#ModalModifierUtilisateurPoste').val(selectedRows[0][5]);
+    $('#ModalModifierUtilisateurDirection').val(selectedRows[0][6]);
+    $('#ModalModifierUtilisateurEtablissement').val(selectedRows[0][7]);
+  
 
         $('#ModalModifierUtilisateur').modal('show');
     });
@@ -443,7 +530,7 @@
         var Utilisateur = {};
         Utilisateur.Nom= $('#ModalAjouterUtilisateurNom').val();
         Utilisateur.Prenom= $('#ModalAjouterUtilisateurPrenom').val();
-        Utilisateur.Email= $('#ModalAjouterUtilisateurEmail').val();      
+        Utilisateur.Email= $('#ModalAjouterUtilisateurEmail').val();
         Utilisateur.Matricule= $('#ModalAjouterUtilisateurMatricule').val();
         Utilisateur.Num_Tel= $('#ModalAjouterUtilisateurTelephone').val();
         Utilisateur.Role= $('#ModalAjouterUtilisateurRole').val();
@@ -456,7 +543,7 @@
 
 
 
-    
+
         if ($('#ModalAjouterUtilisateurNom').val().trim() =='') {
             Swal.fire({
                 icon: 'error',
@@ -466,7 +553,7 @@
             })
             return;
         }
-       
+
 
 
           $.ajax({
