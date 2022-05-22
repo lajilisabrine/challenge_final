@@ -156,7 +156,12 @@
                                                                 <th>@Utilisateur.Poste</th>
                                                                 <th>@Utilisateur.Direction</th>
                                                                 <th>@Utilisateur.Etablissement</th>
-                                                                <th>@Utilisateur.Date_Recrutement.Value.ToString("MM/dd/yyyy")</th>
+                                                                <th>
+                                                                    @if (@Utilisateur.Date_Recrutement.HasValue)
+                                                                    {  @Utilisateur.Date_Recrutement.Value.ToString("MM/dd/yyyy")}
+               
+                                                                
+                                                                </th>
 
 
                                                             </tr>
