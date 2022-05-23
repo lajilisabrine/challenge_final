@@ -1,7 +1,11 @@
 ﻿using Crud.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,26 +38,59 @@ namespace Crud.Controllers
         [HttpPost]
         public JsonResult SaveObjectif(List<Objectif> objectifs ,int CodeUtilisateur)
         {
+           // var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
+            //if (Utilisateur.Objectifs == null || Utilisateur.Objectifs.Count == 0)
+            //    Utilisateur.Objectifs.AddRange(objectifs);
+            //else
+            //{
+            //    List<Objectif> ObjUtilisateur = new List<Objectif>();
+            //    ObjUtilisateur=Utilisateur.Objectifs.ToList();
+            //    foreach (var obj in ObjUtilisateur.ToList())
+            //    {
+            //        //Utilisateur.Objectifs.Remove(obj);
+            //        var objecct= db.Objectifs.Find(obj.Id);
+            //        db.Objectifs.Remove(objecct);
+            //        db.SaveChanges();
+            //    }
+            //    Utilisateur.Objectifs.AddRange(objectifs);
+            //    db.SaveChanges();
+            //}
+
+
+            //db.SaveChanges();
+
             var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
-            if (Utilisateur.Objectifs == null || Utilisateur.Objectifs.Count == 0)
-                Utilisateur.Objectifs.AddRange(objectifs);
+            var Existe = db.Entreteins.Any(x => x.Utilisateur.Id == Utilisateur.Id);
+            if (!Existe) { 
+               Entretein Entretein = new Entretein();
+               Entretein.Utilisateur = Utilisateur;
+               Entretein.Objectifs = new List<Objectif>();            
+               Entretein.Objectifs.AddRange(objectifs);
+               Entretein.Année = DateTime.Now.Year;
+               Entretein.Etat = Etat.Fixation_des_Objectifs;
+               db.Entreteins.Add(Entretein);
+               db.SaveChanges();
+                Task.Run(() => SendMail(Utilisateur.Email, "Compte -Challenge", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Vos objectifs sont crées par votre Manager , Merci de consulter votre platforme.{Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Challenge"));
+                return Json("Sucess", JsonRequestBehavior.AllowGet);
+            }
             else
             {
-                List<Objectif> ObjUtilisateur = new List<Objectif>();
-                ObjUtilisateur=Utilisateur.Objectifs.ToList();
+
+                var entretien = db.Entreteins.FirstOrDefault(x => x.Utilisateur.Id == Utilisateur.Id);
+             var   ObjUtilisateur = entretien.Objectifs.ToList();
                 foreach (var obj in ObjUtilisateur.ToList())
                 {
-                    //Utilisateur.Objectifs.Remove(obj);
-                    var objecct= db.Objectifs.Find(obj.Id);
+                    
+                    var objecct = db.Objectifs.Find(obj.Id);
                     db.Objectifs.Remove(objecct);
                     db.SaveChanges();
                 }
-                Utilisateur.Objectifs.AddRange(objectifs);
+                entretien.Objectifs.AddRange(objectifs);
                 db.SaveChanges();
-            }
-                
+                Task.Run(() => SendMail(Utilisateur.Email, "Compte -Challenge", $"Bonjour {Utilisateur.FullName},{Environment.NewLine}Vos objectifs sont modifier  par votre Manager , Merci de consulter votre platforme.{Environment.NewLine}Cordialement,{Environment.NewLine}Équipe Challenge"));
+                return Json("Sucess", JsonRequestBehavior.AllowGet);
 
-            db.SaveChanges();
+            }
 
 
 
@@ -103,21 +140,47 @@ namespace Crud.Controllers
         public JsonResult Passevaluation(int CodeUtilisateur)
         {
             var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
-           var ListObjectifs= Utilisateur.Objectifs;
-            if (ListObjectifs.Count()==0)
+      
+          //  if (Existe) { }
+           var Entreteindb = db.Entreteins.Where(x=>x.Utilisateur.Id== Utilisateur.Id).FirstOrDefault();
+
+        
+            if (Entreteindb ==null)
             {
-                return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+             
+
+                return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = "" }, JsonRequestBehavior.AllowGet);
             
             
             
             }
-            else if(ListObjectifs != null && ListObjectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve))
+            else if(Entreteindb != null && Entreteindb.Objectifs != null && Entreteindb.Objectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve))
             {
+                var ListObjectifs = Entreteindb.Objectifs.Select(x => new
+                {
+                    Id = x.Id,
+                    KPI = x.KPI,
+                    Ponderation = x.Ponderation,
+                    Titre_Obj = x.Titre_Obj,
+                    Commantaire_Manager = x.Commantaire_Manager,
+                    Status_Obj = x.Status_Obj,
+                    Annee = x.Annee
+                }).ToList();
                 return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
                
             }
             else
             {
+                var ListObjectifs = Entreteindb.Objectifs.Select(x => new
+                {
+                    Id = x.Id,
+                    KPI = x.KPI,
+                    Ponderation = x.Ponderation,
+                    Titre_Obj = x.Titre_Obj,
+                    Commantaire_Manager = x.Commantaire_Manager,
+                    Status_Obj = x.Status_Obj,
+                    Annee = x.Annee
+                }).ToList();
                 var Enattente = ListObjectifs.Any(x => x.Status_Obj == Status_Obj.En_attente);
                 return Json(new { Resultat = "Sucess",Enattente= Enattente, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
            
@@ -146,6 +209,40 @@ namespace Crud.Controllers
                        public ActionResult demandeTICKETS()
         {
             return View();
+        }
+        public static void SendMail(String destination, String Subject, string Content)
+        {
+            var body = Content;
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(destination));
+            message.CC.Add(new MailAddress(ConfigurationManager.AppSettings.Get("gmailAccountcopy")));
+            message.From = new MailAddress(ConfigurationManager.AppSettings.Get("gmailAccountAddress"));
+            message.Subject = Subject;
+            message.Body = body;
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = ConfigurationManager.AppSettings.Get("gmailAccountAddress"),
+                    Password = ConfigurationManager.AppSettings.Get("gmailAccountPassword")
+                };
+
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                try
+                {
+                    smtp.Send(message);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
         }
     }
 }

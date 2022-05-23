@@ -195,6 +195,14 @@
     <Compile Include="Migrations\202205200035493_requi.designer.cs">
       <DependentUpon>202205200035493_requi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205222353104_objectibe.cs" />
+    <Compile Include="Migrations\202205222353104_objectibe.designer.cs">
+      <DependentUpon>202205222353104_objectibe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205230017266_objectibezdez.cs" />
+    <Compile Include="Migrations\202205230017266_objectibezdez.designer.cs">
+      <DependentUpon>202205230017266_objectibezdez.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -2537,6 +2545,12 @@
     <EmbeddedResource Include="Migrations\202205200035493_requi.resx">
       <DependentUpon>202205200035493_requi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205222353104_objectibe.resx">
+      <DependentUpon>202205222353104_objectibe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205230017266_objectibezdez.resx">
+      <DependentUpon>202205230017266_objectibezdez.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2581,13 +2595,13 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-	<Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
-		<ItemGroup>
-			<RoslynFiles Include="$(CscToolPath)\*" />
-		</ItemGroup>
-		<MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
-		<Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-	</Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
   <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
     <ItemGroup>
       <RoslynFiles Include="$(CscToolPath)\*" />

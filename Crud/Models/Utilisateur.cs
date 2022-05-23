@@ -59,8 +59,7 @@ namespace Crud.Models
 
         public DateTime? Date_Modification { get;set; }
 
-        public string Photo { get; set; }
-        public virtual List<Objectif> Objectifs { get; set; }
+        public string Photo { get; set; }     
         public virtual CvFile CV { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
         public ICollection<Entretein> Entreteins { get; set; }

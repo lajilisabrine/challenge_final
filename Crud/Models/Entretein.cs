@@ -28,8 +28,8 @@ namespace Crud.Models
         public Appreciation Appreciation { get; set; }
      
         public string Note { get; set; }
-        public Utilisateur Utilisateur { set; get; }
-        public ICollection<Objectif> Objectifs { get; set; }
+        public virtual Utilisateur Utilisateur { set; get; }
+        public virtual  List<Objectif> Objectifs { get; set; }
 
     }
 }
