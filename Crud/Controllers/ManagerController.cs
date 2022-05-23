@@ -94,7 +94,7 @@ namespace Crud.Controllers
 
 
 
-            return Json("Sucess", JsonRequestBehavior.AllowGet);
+         
         }
         public JsonResult Saveuserevaluation(Entretein Entretein)
         {

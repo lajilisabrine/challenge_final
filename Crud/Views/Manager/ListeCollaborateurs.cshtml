@@ -368,7 +368,86 @@
         window.stepper = new Stepper(document.querySelector('.bs-stepper'))
     })
 
+    //$("td.ResultatatteinteObjectif").on("change", function () {
+
+    //    alert(" ResultatatteinteObjectif");
+
+    //})
+    $('#tableEvaluation').on('input', 'td[contenteditable].ResultatatteinteObjectif', function () {
+        var Valeur = parseInt($(this).html());
+        var tr = $(this).closest('tr');
+        if (Number.isNaN(Valeur)) {
+            console.log("Number.isNaN(Valeur)", Number.isNaN(Valeur));
+            $(this).html('');
+            $(this).closest('tr').find('td').eq(5).html('');
+        } else {
+            
+            if (Valeur < 1 || Valeur > 5) {
+                $(this).html('');
+                $(this).closest('tr').find('td').eq(5).html('');
+                return;
+             }
+            var Ponduration = $(this).closest('tr').find('td').eq(1).html();
+            var SocreTotale = (Valeur * Ponduration)/100 ;
+            console.log("SocreTotale", SocreTotale);
+            $(this).closest('tr').find('td').eq(5).html(SocreTotale);
+        }
+       
+     
+
+
+        console.log("its cool.", Valeur);
+    });
+
     $("#sumbitButtonEvalution").on("click", function () {
+        if ($("#PointForTextarea").val() == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: " Point For est Obligatoir",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        if ($("#FreinsTextarea").val() == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: " Freins est Obligatoir",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        if ($("#cmtmanager").val() == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: " Commentaire est Obligatoir",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
+        if ($("#inputScore").val() == '') {
+            Swal.fire({
+                showCloseButton: true,
+                title: "Attention!",
+                text: " Score est Obligatoir",
+                icon: "warning",
+                confirmButtonColor: '#3085d6',
+                button: "OK",
+                dangerMode: true
+            })
+            return;
+        }
         var Entretein = {};
         Entretein.PointForts = $("#PointForTextarea").val();
         Entretein.Freins_Rencontres = $("#FreinsTextarea").val();
@@ -619,7 +698,8 @@
 
                                 //  ResultatatteinteObjectif
                                 var TDResultatatteinteObjectif = document.createElement('td');
-                                $(TDResultatatteinteObjectif).prop('name', 'TDResultatatteinteObjectif');
+                                $(TDResultatatteinteObjectif).addClass("ResultatatteinteObjectif");
+                                    //.prop('name', 'TDResultatatteinteObjectif');
                                 $(TDResultatatteinteObjectif).attr("contenteditable", true);
                                 $(TDResultatatteinteObjectif).append("");
                                 newRow.appendChild(TDResultatatteinteObjectif);
@@ -635,7 +715,7 @@
                                 // Score
                                 var TDScore = document.createElement('td');
                                 $(TDScore).prop('name', 'Score');
-                                $(TDScore).attr("contenteditable", true);
+                               
                                 $(TDScore).append("");
                                 newRow.appendChild(TDScore);
 
@@ -814,10 +894,12 @@
 
       var tbObjectif = $('#tableObjectif:eq(0) tbody');
       var Btnvaliderexist = false;
-
+      var TotalPondurationdep = false;
+      var totalPonderation = 0;
       tbObjectif.find("tr").each(function (index, element) {
-
-                console.log("item", element);
+          
+          totalPonderation += parseInt($(element).find('td').eq(1).html());
+          console.log("totalPonderation", totalPonderation);
           var Objectif = {
               Titre_Obj: $(element).find('td').eq(0).html(),
               Ponderation: parseInt($(element).find('td').eq(1).html()),
@@ -829,8 +911,16 @@
           var Btnvalider = $(this).find('td').eq(4).find('.Valider').length;
 
           if (Btnvalider != 0) {
+             
               Btnvaliderexist = true;
 
+          }
+          if (totalPonderation != 100) {
+
+              TotalPondurationdep = true;
+
+          } else {
+              TotalPondurationdep = false;
           }
           objectifs.push(Objectif);
           Objectif = {};
@@ -848,6 +938,24 @@
               button: "OK",
               dangerMode: true
           });
+          return;
+      }
+      if (TotalPondurationdep) {
+          Swal.fire({
+              showCloseButton: true,
+              title: "Attention!",
+              html: " <div> Total Ponduration nonn valide.<br>Merci de vérifier</div> ",
+              icon: "warning",
+              confirmButtonColor: '#3085d6',
+              button: "OK",
+              dangerMode: true
+          });
+          var tbObjectif = $('#tableObjectif:eq(0) tbody');
+          tbObjectif.find("tr").each(function (index, element) {
+
+              $(element).find('td').eq(1).attr('contenteditable', 'True');
+          });
+          TotalPondurationdep = false;
           return;
       }
 
