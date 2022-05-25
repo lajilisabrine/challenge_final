@@ -281,27 +281,12 @@
 
                                         </div>
                                     </div>
-                                    @*<div class="row col-md-12 text-center ">
-
-            <div class="form-group col-md-6 mt--30 mb--20">
-                <label for="exampleFormControlTextarea1">Total Score</label>
-                <input type="text" id="inputScore" class="form-control" />
-            </div>
-            <div class="form-group col-md-6 mt--30 mb--20">
-                <label for="exampleFormControlTextarea1">Appreciation</label>
-                <select id="Appreciation" class="form-control">
-
-                    <option value="0" > Passable</option>
-                    <option value="1">Assez_Bien</option>
-                    <option value="2">Excellent</option>
-                </select>
-            </div>
-        </div>*@
+                                  
                                     <div class="d-flex flex-column align-items-end  my-2">
                                         <div class="form-group">
                                             <div class="col-xs-3">
                                                 <label for="ex1" style="font-size: 12px;">Score Final</label>
-                                                <input class="form-control shadow" id="inputScore" type="text">
+                                                <input class="form-control shadow" id="inputScore" type="text" readonly>
                                             </div>
 
                                             <label for="appreciation" style="font-size: 12px;">Appreciation</label>
@@ -311,8 +296,7 @@
                                                 <option value="2">Excellent</option>
                                             </select>
 
-                                            @*<label for="exampleFormControlTextarea1">Score Final</label>
-        <input type="text" id="inputScore" class="form-control" />*@
+                                           
                                         </div>
                                         
                                        
@@ -380,17 +364,28 @@
             console.log("Number.isNaN(Valeur)", Number.isNaN(Valeur));
             $(this).html('');
             $(this).closest('tr').find('td').eq(5).html('');
+            $('#inputScore').val('');
         } else {
             
             if (Valeur < 1 || Valeur > 5) {
                 $(this).html('');
                 $(this).closest('tr').find('td').eq(5).html('');
+                $('#inputScore').val('');
                 return;
              }
             var Ponduration = $(this).closest('tr').find('td').eq(1).html();
             var SocreTotale = (Valeur * Ponduration)/100 ;
-            console.log("SocreTotale", SocreTotale);
+           
             $(this).closest('tr').find('td').eq(5).html(SocreTotale);
+            var tbEvaluation = $('#tableEvaluation:eq(0) tbody');
+            var SocreFinal = 0;
+            tbEvaluation.find("tr").each(function (index, element) {
+                console.log("Socre Final ", parseFloat($(element).find('td').eq(5).html().replace(',', '.')));
+                if(!Number.isNaN(parseFloat($(element).find('td').eq(5).html().replace(',', '.'))))
+                SocreFinal += parseFloat($(element).find('td').eq(5).html().replace(',', '.'));
+
+            });
+            $('#inputScore').val(SocreFinal.toFixed(0));
         }
        
      
@@ -448,29 +443,27 @@
             })
             return;
         }
-        var Entretein = {};
+        var Entretein = {         
+        };
         Entretein.PointForts = $("#PointForTextarea").val();
         Entretein.Freins_Rencontres = $("#FreinsTextarea").val();
         Entretein.Note = $("#inputScore").val();
         Entretein.Appreciation = $("#Appreciation").val();
         Entretein.Commantaire_Manager = $("#cmtmanager").val();
-        console.log("item", PointForTextarea);
-        console.log("item", FreinsTextarea);
-        console.log("item", inputScore);
-        console.log("item", Appreciation);
-        console.log("item", cmtmanager);
-        var objectifs = [];
+    
+        var objectifs =[];
         var tbEvaluation= $('#tableEvaluation:eq(0) tbody');
         tbEvaluation.find("tr").each(function (index, element) {
 
-            console.log("item", element);
+          
             var Objectif = {
                 Titre_Obj: $(element).find('td').eq(0).html(),
                 Ponderation: parseInt($(element).find('td').eq(1).html()),
                 KPI: $(element).find('td').eq(2).html(),
                 Ressultat: $(element).find('td').eq(3).html(),
                 Commantaire_Manager: $(element).find('td').eq(4).html(),
-                Annee: Annee
+                Score: $(element).find('td').eq(5).html().replace('.', ','),
+                Annee: 2020
 
             }
            
@@ -478,16 +471,21 @@
             Objectif = {};
 
         });
+      
+        var CodeUtilisateur = selectedRows[0]["DT_RowId"];
+        console.log("Entretein", Entretein);
+        console.log("objectifs", objectifs);
+        console.log("CodeUtilisateur", CodeUtilisateur);
 
           $.ajax({
                     async: false,
                     type: "post",
                     dataType: "JSON",
                     url: "@Url.Action("Saveuserevaluation", "Manager")",
-                    data: { Entretein },
+              data: { Entretein, objectifs, CodeUtilisateur },
                     success: function (response) {
                         console.log("response", response);
-                     
+                        window.location.reload(true);
 
                      
 
@@ -613,10 +611,15 @@
                     data: { CodeUtilisateur },
                     success: function (response) {
                         console.log("response", response);
-                        if (response.Enattente) {
+                        debugger;
+                        if (response.Enattente ) {
 
                             $("#sumbitButtonEvalution").hide();
                         } else {
+                            $("#sumbitButtonEvalution").show();
+                        }
+
+                        if (response.Etat == 1 && response.EtatReserve) {
                             $("#sumbitButtonEvalution").show();
                         }
 
@@ -626,7 +629,7 @@
 
                             Pass = false;
                             response.ListObjectifs.forEach(function (item) {
-                                console.log("item", item);
+                            
                                 var newRow = document.createElement('tr');
 
                                 var TDObjectif = document.createElement('td');
@@ -676,8 +679,14 @@
 
                             Pass = true;
                             console.log("Passevaluation", response.ListObjectifs);
+                            $('#PointForTextarea').val(response.Freins_recontre);
+                            $('#FreinsTextarea').val(response.PointForts);
+                            $('#inputScore').val(response.Note);
+                            $('#cmtmanager').val(response.cmt_manager);
+                            $("#Appreciation").val(response.Appreciation);
+
                             response.ListObjectifs.forEach(function (item) {
-                                console.log("item", item);
+                           
                                 var newRow = document.createElement('tr');
 
                                 var TDObjectif = document.createElement('td');
@@ -701,7 +710,7 @@
                                 $(TDResultatatteinteObjectif).addClass("ResultatatteinteObjectif");
                                     //.prop('name', 'TDResultatatteinteObjectif');
                                 $(TDResultatatteinteObjectif).attr("contenteditable", true);
-                                $(TDResultatatteinteObjectif).append("");
+                                $(TDResultatatteinteObjectif).append(item.Ressultat);
                                 newRow.appendChild(TDResultatatteinteObjectif);
 
 
@@ -716,7 +725,7 @@
                                 var TDScore = document.createElement('td');
                                 $(TDScore).prop('name', 'Score');
                                
-                                $(TDScore).append("");
+                                $(TDScore).append(item.Score);
                                 newRow.appendChild(TDScore);
 
 
@@ -981,13 +990,13 @@
                             position: 'top-end',
                             icon: 'success',
                             title: 'Enregistrement effectué avec succès',
-                            showConfirmButton: false,
-                            timer: 1500
+                            confirmButtonColor: '#0a498c'
                         }).then(function () {
 
-                            window.location = window.location.reload(true);
+                           
                         });
-
+                       
+                       window.location.reload(true);
 
                     } else {
 

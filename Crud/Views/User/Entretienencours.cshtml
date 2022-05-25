@@ -1,5 +1,5 @@
 ﻿
-@model List<Crud.Models.Objectif>
+@model Crud.Models.Entretein
 @{
     ViewBag.Title = "Entretienencours";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -29,7 +29,7 @@
 <section class="content">
 
     <div class="card card-primary">
-        @if (Model.Count > 0)
+        @if (Model.Etat == Crud.Models.Etat.Fixation_des_Objectifs && Model.Objectifs.Any(x => x.Status_Obj == Crud.Models.Status_Obj.En_attente))
         {
             <div class="card-header">
                 <h3 class="card-title">Entretien en cours</h3>
@@ -62,7 +62,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var Objectif in Model)
+                                            @foreach (var Objectif in Model.Objectifs)
                                             {
                                                 <tr>
 
@@ -80,25 +80,7 @@
 
 
                         </div>
-                        @*</div>*@
 
-
-                        @*<thead>
-                        @*<tr role="row">
-                            <th style="visibility: hidden"></th>
-                            @*<th>Matricule</th>*@
-                        @*<th>Objectif</th>
-                        <th>Ponderation</th>
-                        <th>KPI</th>
-                        <th>Commentaire</th>
-                        <th>Action</th>*@
-
-                        @*</tr>
-
-                        </thead>
-                        <tbody></tbody>*@
-
-                        @*</table>*@
                     </div>
 
                 </div>
@@ -114,7 +96,7 @@
                 </div>
             </div>
         }
-        else
+        else if (Model.Etat == Crud.Models.Etat.Evaluation && Model.Objectifs.Any(x => x.Status_Obj == Crud.Models.Status_Obj.En_attente))
         {
             <div class="card-header">
                 <h3 class="card-title">Entretien en cours</h3>
@@ -131,18 +113,139 @@
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                     <div class="row">
-                       
+                        <input type="text" value="@ViewBag.AnnerObj" readonly id="Annee_obj" style="border: none;" />
+                        @*<div class="row row mt-4">*@
                         <div class="col-12">
-                         
-                            <div>Aucun Objectif defini</div>
+                            <div class="cart-table table-responsive">
+                                <div id="tablListeMagasins_wrapper" class="dataTables_wrapper">
+                                    <table class="table" id="tableObjectifEvaluation">
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 12px; ">Objectif</th>
+                                                <th style="font-size: 12px;">Ponderation</th>
+                                                <th style="font-size: 12px; ">KPI</th>
+                                                <th style="font-size: 12px;">Resultat d'atteinte d'Objectif</th>
+                                                <th style="font-size: 12px;">Commentaire</th>
+                                                <th style="font-size: 12px;">Score</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var Objectif in Model.Objectifs)
+                                            {
+                                                <tr>
+
+                                                    <th>@Objectif.Titre_Obj</th>
+                                                    <th>@Objectif.Ponderation</th>
+                                                    <th>@Objectif.KPI</th>
+                                                    <th>@Objectif.Ressultat</th>
+                                                    <th>@Objectif.Commantaire_Manager</th>
+                                                    <th>@Objectif.Score</th>
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
 
                         </div>
-                     
+                        @*</div>*@
+
+
+                        <div class="d-flex flex-column align-items-end  my-2">
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label for="ex1" style="font-size: 12px;">Score Final</label>
+                                    <input class="form-control shadow" type="text" value="@Model.Note" readonly>
+                                </div>
+
+                                <label for="appreciation" style="font-size: 12px;">Appreciation</label>
+                                <input class="form-control shadow" type="text" value="@Model.Appreciation" readonly>
+
+
+                            </div>
+
+
+                        </div>
+
+
                     </div>
 
                 </div>
             </div>
-         
+            <div class="card-footer">
+                <div class="form-group">
+                    <div>
+                        <div class="form-group">
+                            <label for="inputSubject">Commentaire Manager</label>
+                            <input type="text" value="@Model.Commantaire_Manager" class="form-control" readonly />
+                        </div>
+
+                    </div>
+                    <div>
+                        <label for="inputSubject">Commentaire Collaborateur</label>
+                        <input type="text" id="Commantaire_Employee" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-primary" id="btnvalideEvaluation">valider</button>
+                    <button type="button" class="btn btn-secondary" id="btnreserveEvaluation">Reserve</button>
+                </div>
+            </div>
+
+
+
+        }
+        else if (Model.Etat == Crud.Models.Etat.Entretein_Cloturé)
+        {
+
+            <div class="card-header">
+                <h3 class="card-title">Entretien Colturée</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+          
+        }
+        else
+
+        {
+
+
+
+            <div class="card-header">
+                <h3 class="card-title">Entretien en cours</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <div class="card-body">
+
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+
+                        <div class="col-12">
+
+                            <div>Aucun Objectif defini</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
         }
     </div>
 
@@ -150,6 +253,61 @@
 <!-- Sweet Alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    $('#btnvalideEvaluation').on("click", function () {
+        var Commantaire_Employee = $("#Commantaire_Employee").val();
+         $.ajax({
+          async: false,
+          type: "post",
+          dataType: "JSON",
+          url: "@Url.Action("SavevalideEvaluation", "User")",
+             data: { Commantaire_Employee},
+                success: function (response) {
+                    console.log(response);
+                    if (response == "Sucess") {
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Enregistrement effectué avec succès',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+
+                               location.reload();
+                        });
+
+                    }
+                }
+        })
+    })
+    
+    $('#btnreserveEvaluation').on("click", function () {
+        var Commantaire_Employee = $("#Commantaire_Employee").val();
+         $.ajax({
+          async: false,
+          type: "post",
+          dataType: "JSON",
+          url: "@Url.Action("SavereserveEvaluation", "User")",
+             data: { Commantaire_Employee},
+                success: function (response) {
+                    console.log(response);
+                    if (response == "Sucess") {
+
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Enregistrement effectué avec succès',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+
+                               location.reload();
+                        });
+
+                    }
+                }
+        })
+    })
     $('#btnvalide').on("click", function () {
         var anner = $("#Annee_obj").val();
         var status = 1;

@@ -203,6 +203,10 @@
     <Compile Include="Migrations\202205230017266_objectibezdez.designer.cs">
       <DependentUpon>202205230017266_objectibezdez.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205242220521_decimal.cs" />
+    <Compile Include="Migrations\202205242220521_decimal.designer.cs">
+      <DependentUpon>202205242220521_decimal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Appreciation.cs" />
@@ -2550,6 +2554,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205230017266_objectibezdez.resx">
       <DependentUpon>202205230017266_objectibezdez.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205242220521_decimal.resx">
+      <DependentUpon>202205242220521_decimal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

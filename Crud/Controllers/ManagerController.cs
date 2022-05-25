@@ -96,7 +96,8 @@ namespace Crud.Controllers
 
          
         }
-        public JsonResult Saveuserevaluation(Entretein Entretein)
+        [HttpPost]
+        public JsonResult Saveuserevaluation(Entretein Entretein, List<Objectif> objectifs, int CodeUtilisateur)
         {
             //var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
 
@@ -116,11 +117,30 @@ namespace Crud.Controllers
             //    Utilisateur.Objectifs.AddRange(objectifs);
             //    db.SaveChanges();
             //}
+            var Utilisateur = db.Utilisateurs.Find(CodeUtilisateur);
+            var entretien = db.Entreteins.FirstOrDefault(x => x.Utilisateur.Id == Utilisateur.Id);
+            entretien.PointForts = Entretein.PointForts;
+            entretien.Freins_Rencontres = Entretein.Freins_Rencontres;
+            entretien.Année = Entretein.Année;
+            entretien.Note = Entretein.Note;
+            entretien.Etat = Etat.Evaluation;
+            entretien.Appreciation = Entretein.Appreciation;
+            entretien.Commantaire_Manager = Entretein.Commantaire_Manager;
 
-            db.Entreteins.Add(Entretein);
+
+
+
+
+            var ObjUtilisateur = entretien.Objectifs.ToList();
+            foreach (var obj in ObjUtilisateur.ToList())
+            {
+
+                var objecct = db.Objectifs.Find(obj.Id);
+                db.Objectifs.Remove(objecct);
+                db.SaveChanges();
+            }
+            entretien.Objectifs.AddRange(objectifs);
             db.SaveChanges();
-
-
 
             return Json("Sucess", JsonRequestBehavior.AllowGet);
         }
@@ -154,7 +174,7 @@ namespace Crud.Controllers
             
             
             }
-            else if(Entreteindb != null && Entreteindb.Objectifs != null && Entreteindb.Objectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve))
+            else if(Entreteindb != null && Entreteindb.Objectifs != null && Entreteindb.Objectifs.Any(x=>x.Status_Obj==Status_Obj.Reserve)&& Entreteindb.Etat!=Etat.Evaluation)
             {
                 var ListObjectifs = Entreteindb.Objectifs.Select(x => new
                 {
@@ -164,9 +184,11 @@ namespace Crud.Controllers
                     Titre_Obj = x.Titre_Obj,
                     Commantaire_Manager = x.Commantaire_Manager,
                     Status_Obj = x.Status_Obj,
-                    Annee = x.Annee
+                    Annee = x.Annee,
+                    Ressultat = x.Ressultat,
+                    Score = x.Score,
                 }).ToList();
-                return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+                return Json(new { Resultat = "Failed", Enattente = true, ListObjectifs = ListObjectifs, Etat = Entreteindb.Etat , EtatReserve=false}, JsonRequestBehavior.AllowGet);
                
             }
             else
@@ -179,10 +201,18 @@ namespace Crud.Controllers
                     Titre_Obj = x.Titre_Obj,
                     Commantaire_Manager = x.Commantaire_Manager,
                     Status_Obj = x.Status_Obj,
-                    Annee = x.Annee
+                    Annee = x.Annee,
+                    Ressultat=x.Ressultat,
+                    Score=x.Score,
                 }).ToList();
+                
                 var Enattente = ListObjectifs.Any(x => x.Status_Obj == Status_Obj.En_attente);
-                return Json(new { Resultat = "Sucess",Enattente= Enattente, ListObjectifs = ListObjectifs }, JsonRequestBehavior.AllowGet);
+                var EtatReserve = ListObjectifs.Any(x => x.Status_Obj == Status_Obj.Reserve);
+                return Json(new { Resultat = "Sucess",Enattente= Enattente, ListObjectifs = ListObjectifs, PointForts = Entreteindb.PointForts, Freins_recontre = Entreteindb.Freins_Rencontres, Note = Entreteindb.Note, Appreciation = Entreteindb.Appreciation, Cmt_empolyee = Entreteindb.Commantaire_Employee,
+                    cmt_manager = Entreteindb.Commantaire_Manager,
+                    Etat = Entreteindb.Etat ,
+                    EtatReserve
+                }, JsonRequestBehavior.AllowGet);
            
             }
 

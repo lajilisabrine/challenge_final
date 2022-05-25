@@ -51,9 +51,38 @@ namespace Crud.Controllers
             {
                 ViewBag.AnnerObj = ListeObjectif.FirstOrDefault().Annee;
             }
-            return View(ListeObjectif);
+          var a=  Entretien.Objectifs.Any(x => x.Status_Obj == Status_Obj.En_attente);
+            return View(Entretien);
         }
         [HttpPost]
+        public JsonResult SavevalideEvaluation(string Commantaire_Employee)
+        {
+            Utilisateur utilisateur = Session["CurrentUser"] as Utilisateur;
+            var Utilisateur = db.Utilisateurs.Find(utilisateur.Id);
+            var Entretien = db.Entreteins.Where(x => x.Utilisateur.Id == Utilisateur.Id).FirstOrDefault();
+            Entretien.Commantaire_Employee = Commantaire_Employee;
+            Entretien.Etat = Etat.Entretein_Cloturé;
+            db.SaveChanges();
+            return Json("Sucess", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SavereserveEvaluation(string Commantaire_Employee)
+        {
+            Utilisateur utilisateur = Session["CurrentUser"] as Utilisateur;
+            var Utilisateur = db.Utilisateurs.Find(utilisateur.Id);
+            var Entretien = db.Entreteins.Where(x => x.Utilisateur.Id == Utilisateur.Id).FirstOrDefault();
+            foreach(var obj in Entretien.Objectifs)
+            {
+                obj.Status_Obj = Status_Obj.Reserve;
+                db.SaveChanges();
+            }
+            Entretien.Commantaire_Employee = Commantaire_Employee;
+            Entretien.Etat = Etat.Evaluation;
+            db.SaveChanges();
+            return Json("Sucess", JsonRequestBehavior.AllowGet);
+        }
+        
+              [HttpPost]
         public JsonResult SaveObjectifSatut(int status, string commentaire, int anner)
         {
             Utilisateur utilisateur = Session["CurrentUser"] as Utilisateur;
